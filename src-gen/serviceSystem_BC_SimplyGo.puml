@@ -1,0 +1,102 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'TravelerEngagement' Aggregate" <<Rectangle>> {
+	class TravelerCustomerJourney <<(E,DarkSeaGreen) Entity>> {
+		String travelerPreferredTouchpoints
+		String travelerEngagementPatterns
+		TravelerServiceExchange interaction
+		TravelerServiceExchange provideTouchpoints()
+	}
+	class TravelerServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		String resourceIntegration
+		String externalDataAccess
+		CommunicationIntermediary travelerData
+		CommunicationIntermediary resourceIntegration()
+	}
+}
+package "'MedicalServiceProviderEngagement' Aggregate" <<Rectangle>> {
+	class MedicalServiceProviderCustomerJourney <<(E,DarkSeaGreen) Entity>> {
+		String travelerPreferredTouchpoints
+		String travelerEngagementPatterns
+		MedicalServiceProviderServiceExchange interaction
+		MedicalServiceProviderServiceExchange provideTouchpoints()
+	}
+	class MedicalServiceProviderServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		String resourceIntegration
+		String externalDataAccess
+		CommunicationIntermediary medicalServiceProviderData
+		CommunicationIntermediary resourceIntegration()
+	}
+}
+package "'ImmigrationAuthorityEngagement' Aggregate" <<Rectangle>> {
+	class ImmigrationAuthorityCustomerJourney <<(E,DarkSeaGreen) Entity>> {
+		String travelerPreferredTouchpoints
+		String travelerEngagementPatterns
+		ImmigrationAuthorityServiceExchange interaction
+		ImmigrationAuthorityServiceExchange provideTouchpoints()
+	}
+	class ImmigrationAuthorityServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		String resourceIntegration
+		String externalDataAccess
+		CommunicationIntermediary immigrationAuthorityData
+		CommunicationIntermediary resourceIntegration()
+	}
+}
+package "'ServiceProviderEngagement' Aggregate" <<Rectangle>> {
+	class ServiceProviderCustomerJourney <<(E,DarkSeaGreen) Entity>> {
+		String travelerPreferredTouchpoints
+		String travelerEngagementPatterns
+		ServiceProviderServiceExchange interaction
+		ServieProviderServiceExchange provideTouchpoints()
+	}
+	class ServiceProviderServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		String resourceIntegration
+		String externalDataAccess
+		CommunicationIntermediary serviceProviderData
+		CommunicationIntermediary resourceIntegration()
+	}
+}
+package "'ResourceOrchestration' Aggregate" <<Rectangle>> {
+	class CommunicationIntermediary <<(A,#fffab8) Aggregate Root>> {
+		String actors
+		String resources
+		TravelerServiceExchange externalData
+		MedicalServiceProviderServiceExchange externalData
+		ImmigrationAuthorityServiceExchange externalData
+		ServiceProviderServiceExchange externalData
+		SITAPlatform passengerData
+		void resourceOrchestration()
+		void actorOrchestration()
+		void e2eEncryption()
+		void security()
+	}
+}
+package "'SITA' Aggregate" <<Rectangle>> {
+	class SITAPlatform <<(A,#fffab8) Aggregate Root>> {
+		String passengerData
+		ImmigrationAuthorityServiceExchange passengerData
+		ImmigrationAuthorityEngagement forwardData()
+	}
+}
+TravelerCustomerJourney --> TravelerServiceExchange : interaction
+TravelerServiceExchange --> CommunicationIntermediary : travelerData
+MedicalServiceProviderCustomerJourney --> MedicalServiceProviderServiceExchange : interaction
+MedicalServiceProviderServiceExchange --> CommunicationIntermediary : medicalServiceProviderData
+ImmigrationAuthorityCustomerJourney --> ImmigrationAuthorityServiceExchange : interaction
+ImmigrationAuthorityServiceExchange --> CommunicationIntermediary : immigrationAuthorityData
+ServiceProviderCustomerJourney --> ServiceProviderServiceExchange : interaction
+ServiceProviderServiceExchange --> CommunicationIntermediary : serviceProviderData
+CommunicationIntermediary --> TravelerServiceExchange : externalData
+CommunicationIntermediary --> MedicalServiceProviderServiceExchange : externalData
+CommunicationIntermediary --> ImmigrationAuthorityServiceExchange : externalData
+CommunicationIntermediary --> ServiceProviderServiceExchange : externalData
+CommunicationIntermediary --> SITAPlatform : passengerData
+SITAPlatform --> ImmigrationAuthorityServiceExchange : passengerData
+legend left
+  This bounded context implements the subdomain 'SimplyGoPlatformDomain'.
+end legend
+
+
+@enduml

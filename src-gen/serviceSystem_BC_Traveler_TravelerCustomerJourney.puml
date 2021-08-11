@@ -1,0 +1,39 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'TravelerCustomerJourney' Aggregate" <<Rectangle>> {
+	class TravelerEngagementDesign <<(A,#fffab8) Aggregate Root>> {
+		String mobileApp
+		String browser
+		String onlineBookingPattern
+		TravelerResourceIntegration businessData
+		TravelerResourceExchange accessPoints
+		TravelerResourceIntegration integrateResources()
+		TravelerResourceExchange enableResourceExchange()
+	}
+	class TravelerResourceIntegration <<(E,DarkSeaGreen) Entity>> {
+		String personalData
+		String healthData
+		String tripData
+		TravelerValueCocreation ownContribution
+	}
+	class TravelerResourceExchange <<(E,DarkSeaGreen) Entity>> {
+		String entryRegulations
+		String healthCareAccess
+		String serviceProvision
+		TravelerValueCocreation externalContribution
+	}
+	class TravelerValueCocreation <<(V,DarkSeaGreen) Value Object>> {
+		String personalizedTravelInformation
+		String improvedTravelConditions
+		void valueInUse()
+	}
+}
+TravelerEngagementDesign --> TravelerResourceIntegration : businessData
+TravelerEngagementDesign --> TravelerResourceExchange : accessPoints
+TravelerResourceIntegration --> TravelerValueCocreation : ownContribution
+TravelerResourceExchange --> TravelerValueCocreation : externalContribution
+
+
+@enduml

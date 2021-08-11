@@ -1,0 +1,28 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'ImmigrationAuhtorityValueSpace' Aggregate" <<Rectangle>> {
+	class SimplyGoValueProposition3 <<(E,DarkSeaGreen) Entity>> {
+		String regulationsDistribution
+		String seamlessTravelerDataDistribution
+		String seamlessImmigration
+		String populationProtection
+		String publicOrder
+		ImmigrationAuthorityValueExpectation valueProposition
+		ImmigrationAuthorityValueExpectation proposeSolutions()
+	}
+	class ImmigrationAuthorityValueExpectation <<(A,#fffab8) Aggregate Root>> {
+		String populationProtection
+		String publicOrder
+		SimplyGoValueProposition3 inspiration
+		ImmigrationAuthorityEngagementDesign expectations
+		SimplyGoValueProposition3 openSolutionSpace()
+		ImmigrationAuthorityEngagementDesign dictate()
+	}
+}
+SimplyGoValueProposition3 --> ImmigrationAuthorityValueExpectation : valueProposition
+ImmigrationAuthorityValueExpectation --> SimplyGoValueProposition3 : inspiration
+
+
+@enduml

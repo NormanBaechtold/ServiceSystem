@@ -1,0 +1,19 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'ResourceIntegration' Aggregate" <<Rectangle>> {
+	class PassengerData <<(E,DarkSeaGreen) Entity>> {
+		String personalData
+		String healthData
+		DataProvision passengerData
+	}
+	class DataProvision <<(A,#fffab8) Aggregate Root>> {
+		String toImmigrationAuthorities
+		ImmigrationAuthority transmittPassengerData()
+	}
+}
+PassengerData --> DataProvision : passengerData
+
+
+@enduml

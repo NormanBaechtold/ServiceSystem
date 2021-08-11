@@ -1,0 +1,22 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'ServiceProviderEngagement' Aggregate" <<Rectangle>> {
+	class ServiceProviderCustomerJourney <<(E,DarkSeaGreen) Entity>> {
+		String travelerPreferredTouchpoints
+		String travelerEngagementPatterns
+		ServiceProviderServiceExchange interaction
+		ServieProviderServiceExchange provideTouchpoints()
+	}
+	class ServiceProviderServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		String resourceIntegration
+		String externalDataAccess
+		CommunicationIntermediary serviceProviderData
+		CommunicationIntermediary resourceIntegration()
+	}
+}
+ServiceProviderCustomerJourney --> ServiceProviderServiceExchange : interaction
+
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'HealthCareCustomerJourney' Aggregate" <<Rectangle>> {
+	class HealthCareEngagementDesign <<(A,#fffab8) Aggregate Root>> {
+		String existingTestProcedures
+		String existingDataDistributionPatterns
+		HealthCareData orchestrates
+		HealthCareResourceIntegration guides
+	}
+	class HealthCareData <<(E,DarkSeaGreen) Entity>> {
+		HealthCareResourceIntegration dataIntegration
+	}
+	class HealthCareResourceIntegration <<(E,DarkSeaGreen) Entity>> {
+		HealthCareValueCocreation serviceExchange
+	}
+	class HealthCareValueCocreation <<(V,DarkSeaGreen) Value Object>> {
+		String seamlessDataExchange
+		String improvedEfficiency
+		String improvedEffectiveness
+	}
+}
+HealthCareEngagementDesign --> HealthCareData : orchestrates
+HealthCareEngagementDesign --> HealthCareResourceIntegration : guides
+HealthCareData --> HealthCareResourceIntegration : dataIntegration
+HealthCareResourceIntegration --> HealthCareValueCocreation : serviceExchange
+
+
+@enduml

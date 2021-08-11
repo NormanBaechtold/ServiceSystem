@@ -1,0 +1,34 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'ServiceProviderCustomerJourney' Aggregate" <<Rectangle>> {
+	class ServiceProviderEngagementDesign <<(A,#fffab8) Aggregate Root>> {
+		String mobileApp
+		ServiceProviderResourceIntegration businessData
+		ServiceProviderResourceExchange accessPoints
+		ServiceProviderResourceIntegration integrateResources()
+		ServiceProviderResourceExchange enableResourceExchange()
+	}
+	class ServiceProviderResourceIntegration <<(E,DarkSeaGreen) Entity>> {
+		String businessData
+		String customerData
+		ServiceProviderValueCocreation ownContribution
+	}
+	class ServiceProviderResourceExchange <<(E,DarkSeaGreen) Entity>> {
+		String customerData
+		String legalObligations
+		ServiceProviderValueCocreation externalContribution
+	}
+	class ServiceProviderValueCocreation <<(V,DarkSeaGreen) Value Object>> {
+		String businessOperation
+		void valueInUse()
+	}
+}
+ServiceProviderEngagementDesign --> ServiceProviderResourceIntegration : businessData
+ServiceProviderEngagementDesign --> ServiceProviderResourceExchange : accessPoints
+ServiceProviderResourceIntegration --> ServiceProviderValueCocreation : ownContribution
+ServiceProviderResourceExchange --> ServiceProviderValueCocreation : externalContribution
+
+
+@enduml

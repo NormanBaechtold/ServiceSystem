@@ -1,0 +1,24 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'HealthCareContext' Aggregate" <<Rectangle>> {
+	class HealthInstitutionAttributes <<(A,#fffab8) Aggregate Root>> {
+		String testCenterLocation
+		String testResults
+		String patienVaccinationStatus
+		OrganizationalNeeds impacts
+		HealthCareData healthcareData
+	}
+	class OrganizationalNeeds <<(E,DarkSeaGreen) Entity>> {
+		String patientPersonalData
+		String patientHealthData
+		String patientDataDistribution
+		SimplyGoValueProposition4 enable
+		HealthCareEngagementDesign engagementPreferences
+	}
+}
+HealthInstitutionAttributes --> OrganizationalNeeds : impacts
+
+
+@enduml

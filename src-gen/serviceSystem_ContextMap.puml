@@ -1,0 +1,90 @@
+@startuml
+
+skinparam componentStyle uml2
+
+component [Traveler]
+note right of [Traveler]
+This context represents the design 
+aspects of the travelers' value 
+cocreation journey. 
+end note
+component [ServiceProvider]
+note right of [ServiceProvider]
+This context represents the design 
+aspects of the service providers' 
+value cocreation journey. 
+end note
+component [ImmigrationAuthorities]
+note right of [ImmigrationAuthorities]
+This context represents the design 
+aspects of the immigration authorities' 
+value cocreation journey. 
+end note
+component [MedicalServiceProvider]
+note right of [MedicalServiceProvider]
+This context represents the design 
+aspects of the medical service 
+providers' value cocreation journey. 
+
+end note
+component [SimplyGo]
+note right of [SimplyGo]
+This context represents the integration 
+and orchestration of actors and 
+their resources inside the platform 
+for service exchange. 
+end note
+component [SITA]
+note right of [SITA]
+This context represents the integration 
+of SITA's external competences 
+into the service system. 
+end note
+component [MarketEnvironment]
+note right of [MarketEnvironment]
+Contextual aspects of the service 
+ecosystem influence  social, business 
+and technological aspects to be 
+considered in the service system 
+design 
+end note
+
+interface "Context" as Traveler_to_MarketEnvironment
+[MarketEnvironment] --> Traveler_to_MarketEnvironment
+Traveler_to_MarketEnvironment <.. [Traveler] : consume
+
+interface "Context" as ServiceProvider_to_MarketEnvironment
+[MarketEnvironment] --> ServiceProvider_to_MarketEnvironment
+ServiceProvider_to_MarketEnvironment <.. [ServiceProvider] : consume
+
+interface "Context" as ImmigrationAuthorities_to_MarketEnvironment
+[MarketEnvironment] --> ImmigrationAuthorities_to_MarketEnvironment
+ImmigrationAuthorities_to_MarketEnvironment <.. [ImmigrationAuthorities] : consume
+
+interface "Context" as MedicalServiceProvider_to_MarketEnvironment
+[MarketEnvironment] --> MedicalServiceProvider_to_MarketEnvironment
+MedicalServiceProvider_to_MarketEnvironment <.. [MedicalServiceProvider] : consume
+
+interface "Context" as SimplyGo_to_MarketEnvironment
+[MarketEnvironment] --> SimplyGo_to_MarketEnvironment
+SimplyGo_to_MarketEnvironment <.. [SimplyGo] : consume
+
+[Traveler]<-->[SimplyGo] : Shared Kernel (System of Interaction)
+
+[ServiceProvider]<-->[SimplyGo] : Shared Kernel (System of Interaction)
+
+[ImmigrationAuthorities]<-->[SimplyGo] : Shared Kernel (System of Interaction)
+
+[MedicalServiceProvider]<-->[SimplyGo] : Shared Kernel (System of Interaction)
+
+interface "System of Participation" as SITA_to_SimplyGo
+[SimplyGo] --> SITA_to_SimplyGo
+SITA_to_SimplyGo <.. [SITA] : consume
+
+interface "Upstream-Downstream" as ImmigrationAuthorities_to_SITA
+[SITA] --> ImmigrationAuthorities_to_SITA
+ImmigrationAuthorities_to_SITA <.. [ImmigrationAuthorities] : consume
+
+
+
+@enduml

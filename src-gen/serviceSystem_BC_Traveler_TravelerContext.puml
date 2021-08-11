@@ -1,0 +1,33 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'TravelerContext' Aggregate" <<Rectangle>> {
+	class TravelerContext <<(A,#fffab8) Aggregate Root>> {
+		TravelerValueExpectation personalNeeds
+		TravelerEngagementDesign engagementPreferences
+		TravelerValueExpectation invoke()
+		TravelerCustomerJourney provideData()
+		TravelerCustomerJourney informEngagementDesign()
+	}
+	class TargetSegments <<(E,DarkSeaGreen) Entity>> {
+		String painsAndGains
+		String serviceRequirements
+		String demographics
+		String typicalBehaviors
+		TravelerContext segmentSpecifications
+		TravelerContext frame()
+	}
+	class IndividualCharacteristics <<(E,DarkSeaGreen) Entity>> {
+		String personalData
+		String healthData
+		String tripData
+		TravelerContext individualData
+		TravelerContext provideData()
+	}
+}
+TargetSegments --> TravelerContext : segmentSpecifications
+IndividualCharacteristics --> TravelerContext : individualData
+
+
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'InfluencialDynamics' Aggregate" <<Rectangle>> {
+	class MarketContext <<(A,#fffab8) Aggregate Root>> {
+		String serviceEcoystemEnvironment
+		serviceSystem influenceDesign()
+	}
+	class CulturalContexts <<(E,DarkSeaGreen) Entity>> {
+		String ageGroupSpecifics
+		String ethicalConventions
+		String languages
+		MarketContext culturalDesignAspects
+		MarketContext shapeSpecifics()
+	}
+	class TechnologicalTrends <<(E,DarkSeaGreen) Entity>> {
+		String trends
+		String standards
+		String norms
+		MarketContext technologicalInfluence
+		MarketContext frameSolutionSpace()
+	}
+	class EconomicalTrends <<(E,DarkSeaGreen) Entity>> {
+		String covid19
+		String legalActions
+		String changingConsumerBehavior
+		MarketContext economicAndLegalInfluence
+		MarketContext frameSolutionSpace()
+	}
+}
+CulturalContexts --> MarketContext : culturalDesignAspects
+TechnologicalTrends --> MarketContext : technologicalInfluence
+EconomicalTrends --> MarketContext : economicAndLegalInfluence
+
+
+@enduml

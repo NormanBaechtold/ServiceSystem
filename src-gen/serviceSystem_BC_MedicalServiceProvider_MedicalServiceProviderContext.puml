@@ -1,0 +1,32 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'MedicalServiceProviderContext' Aggregate" <<Rectangle>> {
+	class MedicalServiceProviderContext <<(A,#fffab8) Aggregate Root>> {
+		MedicalServiceProviderValueExpectation organizationalNeeds
+		MedicalServiceProviderEngagementDesign engagementPreferences
+		MedicalServiceProviderValueExpectation invoke()
+		MedicalServiceProviderCustomerJourney provideData()
+		MedicalServiceProviderCustomerJourney informEngagementDesign()
+	}
+	class MedicalServiceProviderChracteristics <<(E,DarkSeaGreen) Entity>> {
+		String testCenterLocation
+		String testResults
+		String patienVaccinationStatus
+		MedicalServiceProviderContext institutionalData
+		MedicalServiceProviderContext inform()
+	}
+	class OrganizationalNeeds <<(E,DarkSeaGreen) Entity>> {
+		String patientPersonalData
+		String patientHealthData
+		String patientDataDistribution
+		MedicalServiceProviderContext patientData
+		MedicalServiceProviderContext inform()
+	}
+}
+MedicalServiceProviderChracteristics --> MedicalServiceProviderContext : institutionalData
+OrganizationalNeeds --> MedicalServiceProviderContext : patientData
+
+
+@enduml

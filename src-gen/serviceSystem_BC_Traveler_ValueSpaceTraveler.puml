@@ -1,0 +1,27 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'ValueSpaceTraveler' Aggregate" <<Rectangle>> {
+	class SimplyGoValueProposition2 <<(E,DarkSeaGreen) Entity>> {
+		String healthCare
+		String travel
+		String immigration
+		TravelerValueExpectation valueProposition
+		TravelerValueExpectation proposeSolutions()
+	}
+	class TravelerValueExpectation <<(E,DarkSeaGreen) Entity>> {
+		String healthServices
+		String freeTravel
+		String serviceConsume
+		TravelerEngagementDesign expectations
+		SimplyGoValueProposition2 inspiration
+		SimplyGoValueProposition2 openSolutionSpace()
+		ServiceProviderEngagementDesign dictate()
+	}
+}
+SimplyGoValueProposition2 --> TravelerValueExpectation : valueProposition
+TravelerValueExpectation --> SimplyGoValueProposition2 : inspiration
+
+
+@enduml

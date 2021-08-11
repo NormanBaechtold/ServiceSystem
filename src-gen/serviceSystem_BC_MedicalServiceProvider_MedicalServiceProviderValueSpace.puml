@@ -1,0 +1,26 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'MedicalServiceProviderValueSpace' Aggregate" <<Rectangle>> {
+	class SimplyGoValueProposition4 <<(E,DarkSeaGreen) Entity>> {
+		String travelerPersonalData
+		String travelerHealthData
+		MedicalServiceProviderValueExpectation valueProposition
+		MedicalServiceProviderValueExpectation proposeSolutions()
+	}
+	class MedicalServiceProviderValueExpectation <<(A,#fffab8) Aggregate Root>> {
+		String globalDataDistribution
+		String multilingualAccess
+		String operationEfficiency
+		SimplyGoValueProposition4 inspiration
+		MedicalServiceProviderEngagementDesign expectations
+		SimplyGoValueProposition4 openSolutionSpace()
+		MedicalServiceProviderEngagementDesign dictate()
+	}
+}
+SimplyGoValueProposition4 --> MedicalServiceProviderValueExpectation : valueProposition
+MedicalServiceProviderValueExpectation --> SimplyGoValueProposition4 : inspiration
+
+
+@enduml

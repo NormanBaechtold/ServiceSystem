@@ -1,0 +1,35 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'ImmigrationAuthorityCustomerJourney' Aggregate" <<Rectangle>> {
+	class ImmigrationAuthorityEngagementDesign <<(A,#fffab8) Aggregate Root>> {
+		String existingDataExchangeChannels
+		String existingInformationDistributionChannels
+		ImmigrationAuthorityResourceIntegration regulatoryData
+		ImmigrationAuthorityResourceExchange accessPoints
+		ImmigrationAuthorityResourceIntegration integrateResources()
+		ImmigrationAuthorityResourceExchange enableResourceExchange()
+	}
+	class ImmigrationAuthorityResourceIntegration <<(E,DarkSeaGreen) Entity>> {
+		String entryRegulations
+		String entryProcedures
+		ImmigrationAuthorityValueCocreation ownContribution
+	}
+	class ImmigrationAuthorityResourceExchange <<(E,DarkSeaGreen) Entity>> {
+		String passengerData
+		ImmigrationAuthorityValueCocreation externalContribution
+	}
+	class ImmigrationAuthorityValueCocreation <<(V,DarkSeaGreen) Value Object>> {
+		String improvedImmigration
+		String ambiguousHealthRegulation
+		void valueInUse()
+	}
+}
+ImmigrationAuthorityEngagementDesign --> ImmigrationAuthorityResourceIntegration : regulatoryData
+ImmigrationAuthorityEngagementDesign --> ImmigrationAuthorityResourceExchange : accessPoints
+ImmigrationAuthorityResourceIntegration --> ImmigrationAuthorityValueCocreation : ownContribution
+ImmigrationAuthorityResourceExchange --> ImmigrationAuthorityValueCocreation : externalContribution
+
+
+@enduml

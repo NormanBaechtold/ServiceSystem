@@ -1,0 +1,25 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'ValueSpaceServiceProvider' Aggregate" <<Rectangle>> {
+	class SimplyGoValueProposition1 <<(E,DarkSeaGreen) Entity>> {
+		String legalCompliance
+		String businessOperation
+		ServiceProviderValueExpectation valueProposition
+		ServiceProviderValueExpectation proposeSolutions()
+	}
+	class ServiceProviderValueExpectation <<(A,#fffab8) Aggregate Root>> {
+		String profit
+		String businessOperation
+		ServiceProviderEngagementDesign expectations
+		SimplyGoValueProposition1 inspiration
+		SimplyGoValueProposition1 openSolutionSpace()
+		ServiceProviderEngagementDesign dictate()
+	}
+}
+SimplyGoValueProposition1 --> ServiceProviderValueExpectation : valueProposition
+ServiceProviderValueExpectation --> SimplyGoValueProposition1 : inspiration
+
+
+@enduml
