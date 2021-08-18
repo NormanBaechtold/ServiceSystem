@@ -6,11 +6,10 @@ package "'ResourceOrchestration' Aggregate" <<Rectangle>> {
 	class CommunicationIntermediary <<(A,#fffab8) Aggregate Root>> {
 		String actors
 		String resources
-		TravelerServiceExchange externalData
-		MedicalServiceProviderServiceExchange externalData
-		ImmigrationAuthorityServiceExchange externalData
-		ServiceProviderServiceExchange externalData
-		SITAPlatform passengerData
+		ImmigrationAuthorityServiceExchange regulatoryData
+		ServiceProviderServiceExchange businessData
+		TravelerServiceExchange travelerData
+		MedicalServiceProviderServiceExchange healthData
 		void resourceOrchestration()
 		void actorOrchestration()
 		void e2eEncryption()

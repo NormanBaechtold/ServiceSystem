@@ -6,14 +6,14 @@ package "'ResourceIntegration' Aggregate" <<Rectangle>> {
 	class PassengerData <<(E,DarkSeaGreen) Entity>> {
 		String personalData
 		String healthData
-		DataProvision passengerData
 	}
 	class DataProvision <<(A,#fffab8) Aggregate Root>> {
-		String toImmigrationAuthorities
+		String sitaAirportNetwork
+		PassengerData passengerData
 		ImmigrationAuthority transmittPassengerData()
 	}
 }
-PassengerData --> DataProvision : passengerData
+DataProvision --> PassengerData : passengerData
 
 
 @enduml

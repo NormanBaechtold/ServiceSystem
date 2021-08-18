@@ -4,86 +4,91 @@ skinparam componentStyle uml2
 
 package "'ServiceProviderContext' Aggregate" <<Rectangle>> {
 	class ServiceProviderContext <<(A,#fffab8) Aggregate Root>> {
-		ServiceProviderValueExpectation businessNeeds
-		ServiceProviderEngagementDesign engagementPreferences
+		String serviceProviderBusinessNeeds
+		String serviceProviderData
+		BusinessNeeds businessNeeds
+		BusinessCharacteristics businessData
 		ServiceProviderValueExpectation invoke()
 		ServiceProviderCustomerJourney provideData()
 		ServiceProviderCustomerJourney informEngagementDesign()
+	}
+	class BusinessNeeds <<(E,DarkSeaGreen) Entity>> {
+		String businessOperation
+		String customerData
+		String smartIntegration
+		BusinessCharacteristics businessData
+		LegalObligations requiredFunctionalities
+		ServiceProviderContext shapes()
 	}
 	class BusinessCharacteristics <<(E,DarkSeaGreen) Entity>> {
 		String branch
 		String sizeOfBusiness
 		String location
 		String visitorData
-		BusinessNeeds businessCharacteristics
 		BusinessNeeds impact()
 	}
 	class LegalObligations <<(E,DarkSeaGreen) Entity>> {
 		String hygieneMeasures
 		String attendanceLimits
 		String visitorTracing
-		BusinessNeeds requiredFunctionalites
 		BusinessNeeds invokes()
-	}
-	class BusinessNeeds <<(E,DarkSeaGreen) Entity>> {
-		String businessOperation
-		String customerData
-		String smartIntegration
-		ServiceProviderContext businessNeeds
-		ServiceProviderContext shapes()
 	}
 }
 package "'ValueSpaceServiceProvider' Aggregate" <<Rectangle>> {
 	class SimplyGoValueProposition1 <<(E,DarkSeaGreen) Entity>> {
 		String legalCompliance
 		String businessOperation
-		ServiceProviderValueExpectation valueProposition
+		ServiceProviderValueExpectation inspiration
 		ServiceProviderValueExpectation proposeSolutions()
 	}
 	class ServiceProviderValueExpectation <<(A,#fffab8) Aggregate Root>> {
 		String profit
 		String businessOperation
-		ServiceProviderEngagementDesign expectations
-		SimplyGoValueProposition1 inspiration
+		ServiceProviderContext businessNeeds
+		SimplyGoValueProposition1 valueProposition
 		SimplyGoValueProposition1 openSolutionSpace()
 		ServiceProviderEngagementDesign dictate()
 	}
 }
 package "'ServiceProviderCustomerJourney' Aggregate" <<Rectangle>> {
-	class ServiceProviderEngagementDesign <<(A,#fffab8) Aggregate Root>> {
-		String mobileApp
+	class ServiceProviderServiceForServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		String serviceExperience
+		ServiceProviderValueExpectation expectations
+		ServiceProviderContext engagementPreferences
 		ServiceProviderResourceIntegration businessData
-		ServiceProviderResourceExchange accessPoints
-		ServiceProviderResourceIntegration integrateResources()
-		ServiceProviderResourceExchange enableResourceExchange()
+		ServiceProviderResourceExchange externalData
 	}
-	class ServiceProviderResourceIntegration <<(E,DarkSeaGreen) Entity>> {
+	class ServiceProviderResourceIntegration <<(V,DarkSeaGreen) Value Object>> {
 		String businessData
 		String customerData
-		ServiceProviderValueCocreation ownContribution
+		ServiceProviderEngagementDesign customerJourney
+		provide businessData()
+	}
+	class ServiceProviderEngagementDesign <<(E,DarkSeaGreen) Entity>> {
+		String mobileApp
+		ServiceProviderResourceIntegration integrateResources()
+		ServiceProviderResourceExchange enableResourceExchange()
 	}
 	class ServiceProviderResourceExchange <<(E,DarkSeaGreen) Entity>> {
 		String customerData
 		String legalObligations
-		ServiceProviderValueCocreation externalContribution
-	}
-	class ServiceProviderValueCocreation <<(V,DarkSeaGreen) Value Object>> {
-		String businessOperation
-		void valueInUse()
+		ServiceProviderEngagementDesign externalResourceAccess
+		void integrateExternalResources()
 	}
 }
-ServiceProviderContext --> ServiceProviderValueExpectation : businessNeeds
-ServiceProviderContext --> ServiceProviderEngagementDesign : engagementPreferences
-BusinessCharacteristics --> BusinessNeeds : businessCharacteristics
-LegalObligations --> BusinessNeeds : requiredFunctionalites
-BusinessNeeds --> ServiceProviderContext : businessNeeds
-SimplyGoValueProposition1 --> ServiceProviderValueExpectation : valueProposition
-ServiceProviderValueExpectation --> ServiceProviderEngagementDesign : expectations
-ServiceProviderValueExpectation --> SimplyGoValueProposition1 : inspiration
-ServiceProviderEngagementDesign --> ServiceProviderResourceIntegration : businessData
-ServiceProviderEngagementDesign --> ServiceProviderResourceExchange : accessPoints
-ServiceProviderResourceIntegration --> ServiceProviderValueCocreation : ownContribution
-ServiceProviderResourceExchange --> ServiceProviderValueCocreation : externalContribution
+ServiceProviderContext --> BusinessNeeds : businessNeeds
+ServiceProviderContext --> BusinessCharacteristics : businessData
+BusinessNeeds --> BusinessCharacteristics : businessData
+BusinessNeeds --> LegalObligations : requiredFunctionalities
+SimplyGoValueProposition1 --> ServiceProviderValueExpectation : inspiration
+ServiceProviderValueExpectation --> ServiceProviderContext : businessNeeds
+ServiceProviderValueExpectation --> SimplyGoValueProposition1 : valueProposition
+ServiceProviderServiceForServiceExchange --> ServiceProviderValueExpectation : expectations
+ServiceProviderServiceForServiceExchange --> ServiceProviderContext : engagementPreferences
+ServiceProviderServiceForServiceExchange --> ServiceProviderResourceIntegration : businessData
+ServiceProviderServiceForServiceExchange --> ServiceProviderResourceExchange : externalData
+ServiceProviderResourceIntegration --> ServiceProviderEngagementDesign : customerJourney
+ServiceProviderResourceExchange --> ServiceProviderEngagementDesign : externalResourceAccess
 legend left
   This bounded context implements the subdomain 'ServiceProviderDomain'.
 end legend

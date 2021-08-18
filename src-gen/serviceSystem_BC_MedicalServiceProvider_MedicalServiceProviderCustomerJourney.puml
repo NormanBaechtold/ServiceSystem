@@ -3,37 +3,41 @@
 skinparam componentStyle uml2
 
 package "'MedicalServiceProviderCustomerJourney' Aggregate" <<Rectangle>> {
-	class MedicalServiceProviderEngagementDesign <<(A,#fffab8) Aggregate Root>> {
-		String existingTestProcedures
-		String existingDataDistributionPatterns
-		MedicalServiceProviderResourceIntegration regulatoryData
-		MedicalServiceProviderResourceExchange accessPoints
-		MedicalServiceProviderResourceIntegration integrateResources()
-		MedicalServiceProviderResourceExchange enableResourceExchange()
+	class MedicalServiceProviderServiceForServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		String valueExperience
+		MedicalServiceProviderContext engagementPreferences
+		MedicalServiceProviderValueExpectation expecations
+		MedicalServiceProviderResourceIntegration healthData
+		MedicalServiceProviderResourceExchange externalData
+		void personalResourceIntegration()
+		void externalResourceConsumption()
+		void valueCocreation()
 	}
-	class MedicalServiceProviderResourceIntegration <<(E,DarkSeaGreen) Entity>> {
+	class MedicalServiceProviderResourceIntegration <<(V,DarkSeaGreen) Value Object>> {
 		String locationData
 		String patientPersonalData
 		String patientHealthData
 		String patientTestResults
-		MedicalServiceProviderValueCocreation ownContribution
+		MedicalServiceProviderEngagementDesign customerJourney
+		void provideHealthData()
+	}
+	class MedicalServiceProviderEngagementDesign <<(E,DarkSeaGreen) Entity>> {
+		String existingTestProcedures
+		String existingDataDistributionPatterns
+		MedicalServiceProviderResourceIntegration integrateResources()
+		MedicalServiceProviderResourceExchange enableResourceExchange()
 	}
 	class MedicalServiceProviderResourceExchange <<(E,DarkSeaGreen) Entity>> {
 		String patientPersonalData
 		String regulatoryData
-		MedicalServiceProviderValueCocreation externalContribution
-	}
-	class MedicalServiceProviderValueCocreation <<(V,DarkSeaGreen) Value Object>> {
-		String seamlessDataExchange
-		String improvedEfficiency
-		String improvedEffectiveness
-		void valueInUse()
+		MedicalServiceProviderEngagementDesign externalResourceAccess
+		void integrateExternalResources()
 	}
 }
-MedicalServiceProviderEngagementDesign --> MedicalServiceProviderResourceIntegration : regulatoryData
-MedicalServiceProviderEngagementDesign --> MedicalServiceProviderResourceExchange : accessPoints
-MedicalServiceProviderResourceIntegration --> MedicalServiceProviderValueCocreation : ownContribution
-MedicalServiceProviderResourceExchange --> MedicalServiceProviderValueCocreation : externalContribution
+MedicalServiceProviderServiceForServiceExchange --> MedicalServiceProviderResourceIntegration : healthData
+MedicalServiceProviderServiceForServiceExchange --> MedicalServiceProviderResourceExchange : externalData
+MedicalServiceProviderResourceIntegration --> MedicalServiceProviderEngagementDesign : customerJourney
+MedicalServiceProviderResourceExchange --> MedicalServiceProviderEngagementDesign : externalResourceAccess
 
 
 @enduml

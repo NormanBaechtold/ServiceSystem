@@ -5,7 +5,7 @@ skinparam componentStyle uml2
 package "'SITA' Aggregate" <<Rectangle>> {
 	class SITAPlatform <<(A,#fffab8) Aggregate Root>> {
 		String passengerData
-		ImmigrationAuthorityServiceExchange passengerData
+		CommunicationIntermediary passengerData
 		ImmigrationAuthorityEngagement forwardData()
 	}
 }

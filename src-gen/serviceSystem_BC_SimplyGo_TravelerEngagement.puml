@@ -3,20 +3,20 @@
 skinparam componentStyle uml2
 
 package "'TravelerEngagement' Aggregate" <<Rectangle>> {
-	class TravelerCustomerJourney <<(E,DarkSeaGreen) Entity>> {
+	class TravelerCustomerJourney <<(V,DarkSeaGreen) Value Object>> {
 		String travelerPreferredTouchpoints
 		String travelerEngagementPatterns
-		TravelerServiceExchange interaction
 		TravelerServiceExchange provideTouchpoints()
 	}
 	class TravelerServiceExchange <<(A,#fffab8) Aggregate Root>> {
 		String resourceIntegration
 		String externalDataAccess
-		CommunicationIntermediary travelerData
+		TravelerCustomerJourney interaction
+		CommunicationIntermediary externalData
 		CommunicationIntermediary resourceIntegration()
 	}
 }
-TravelerCustomerJourney --> TravelerServiceExchange : interaction
+TravelerServiceExchange --> TravelerCustomerJourney : interaction
 
 
 @enduml

@@ -9,20 +9,20 @@ package "'ImmigrationAuhtorityValueSpace' Aggregate" <<Rectangle>> {
 		String seamlessImmigration
 		String populationProtection
 		String publicOrder
-		ImmigrationAuthorityValueExpectation valueProposition
+		ImmigrationAuthorityValueExpectation inspiration
 		ImmigrationAuthorityValueExpectation proposeSolutions()
 	}
 	class ImmigrationAuthorityValueExpectation <<(A,#fffab8) Aggregate Root>> {
 		String populationProtection
 		String publicOrder
-		SimplyGoValueProposition3 inspiration
-		ImmigrationAuthorityEngagementDesign expectations
+		SimplyGoValueProposition3 valueProposition
+		ImmigrationAuthorityContext regulatoryNeeds
 		SimplyGoValueProposition3 openSolutionSpace()
 		ImmigrationAuthorityEngagementDesign dictate()
 	}
 }
-SimplyGoValueProposition3 --> ImmigrationAuthorityValueExpectation : valueProposition
-ImmigrationAuthorityValueExpectation --> SimplyGoValueProposition3 : inspiration
+SimplyGoValueProposition3 --> ImmigrationAuthorityValueExpectation : inspiration
+ImmigrationAuthorityValueExpectation --> SimplyGoValueProposition3 : valueProposition
 
 
 @enduml

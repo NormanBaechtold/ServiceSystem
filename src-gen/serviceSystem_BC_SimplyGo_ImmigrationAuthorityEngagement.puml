@@ -3,20 +3,21 @@
 skinparam componentStyle uml2
 
 package "'ImmigrationAuthorityEngagement' Aggregate" <<Rectangle>> {
-	class ImmigrationAuthorityCustomerJourney <<(E,DarkSeaGreen) Entity>> {
+	class ImmigrationAuthorityCustomerJourney <<(V,DarkSeaGreen) Value Object>> {
 		String travelerPreferredTouchpoints
 		String travelerEngagementPatterns
-		ImmigrationAuthorityServiceExchange interaction
 		ImmigrationAuthorityServiceExchange provideTouchpoints()
 	}
 	class ImmigrationAuthorityServiceExchange <<(A,#fffab8) Aggregate Root>> {
 		String resourceIntegration
 		String externalDataAccess
-		CommunicationIntermediary immigrationAuthorityData
+		ImmigrationAuthorityCustomerJourney interaction
+		CommunicationIntermediary externalData
+		SITAPlatform passengerData
 		CommunicationIntermediary resourceIntegration()
 	}
 }
-ImmigrationAuthorityCustomerJourney --> ImmigrationAuthorityServiceExchange : interaction
+ImmigrationAuthorityServiceExchange --> ImmigrationAuthorityCustomerJourney : interaction
 
 
 @enduml

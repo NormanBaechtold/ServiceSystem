@@ -4,38 +4,40 @@ skinparam componentStyle uml2
 
 package "'ServiceProviderContext' Aggregate" <<Rectangle>> {
 	class ServiceProviderContext <<(A,#fffab8) Aggregate Root>> {
-		ServiceProviderValueExpectation businessNeeds
-		ServiceProviderEngagementDesign engagementPreferences
+		String serviceProviderBusinessNeeds
+		String serviceProviderData
+		BusinessNeeds businessNeeds
+		BusinessCharacteristics businessData
 		ServiceProviderValueExpectation invoke()
 		ServiceProviderCustomerJourney provideData()
 		ServiceProviderCustomerJourney informEngagementDesign()
+	}
+	class BusinessNeeds <<(E,DarkSeaGreen) Entity>> {
+		String businessOperation
+		String customerData
+		String smartIntegration
+		BusinessCharacteristics businessData
+		LegalObligations requiredFunctionalities
+		ServiceProviderContext shapes()
 	}
 	class BusinessCharacteristics <<(E,DarkSeaGreen) Entity>> {
 		String branch
 		String sizeOfBusiness
 		String location
 		String visitorData
-		BusinessNeeds businessCharacteristics
 		BusinessNeeds impact()
 	}
 	class LegalObligations <<(E,DarkSeaGreen) Entity>> {
 		String hygieneMeasures
 		String attendanceLimits
 		String visitorTracing
-		BusinessNeeds requiredFunctionalites
 		BusinessNeeds invokes()
 	}
-	class BusinessNeeds <<(E,DarkSeaGreen) Entity>> {
-		String businessOperation
-		String customerData
-		String smartIntegration
-		ServiceProviderContext businessNeeds
-		ServiceProviderContext shapes()
-	}
 }
-BusinessCharacteristics --> BusinessNeeds : businessCharacteristics
-LegalObligations --> BusinessNeeds : requiredFunctionalites
-BusinessNeeds --> ServiceProviderContext : businessNeeds
+ServiceProviderContext --> BusinessNeeds : businessNeeds
+ServiceProviderContext --> BusinessCharacteristics : businessData
+BusinessNeeds --> BusinessCharacteristics : businessData
+BusinessNeeds --> LegalObligations : requiredFunctionalities
 
 
 @enduml

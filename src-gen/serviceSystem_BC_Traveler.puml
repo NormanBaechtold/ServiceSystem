@@ -2,10 +2,43 @@
 
 skinparam componentStyle uml2
 
+package "'TravelerCustomerJourney' Aggregate" <<Rectangle>> {
+	class TravelerServiceforServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		String serviceExperience
+		TravelerContext engagementPreferences
+		TravelerValueExpectation expectations
+		TravelerResourceIntegration travelerData
+		TravelerResourceExchange externalData
+		void personalResourceIntegration()
+		void externalResourceConsumption()
+		void valueCocreation()
+	}
+	class TravelerResourceIntegration <<(V,DarkSeaGreen) Value Object>> {
+		String personalData
+		String healthData
+		String tripData
+		TravelerEngagementDesign customerJourney
+		void provideTravelerData()
+	}
+	class TravelerEngagementDesign <<(E,DarkSeaGreen) Entity>> {
+		String mobileApp
+		String browser
+		String onlineBookingPattern
+		TravelerResourceIntegration integrateResources()
+		TravelerResourceExchange enableResourceExchange()
+	}
+	class TravelerResourceExchange <<(E,DarkSeaGreen) Entity>> {
+		String entryRegulations
+		String healthCare
+		String services
+		TravelerEngagementDesign externalResourceAccess
+		void integrateExternalResources()
+	}
+}
 package "'TravelerContext' Aggregate" <<Rectangle>> {
 	class TravelerContext <<(A,#fffab8) Aggregate Root>> {
-		TravelerValueExpectation personalNeeds
-		TravelerEngagementDesign engagementPreferences
+		TargetSegments segmentSpecifications
+		IndividualCharacteristics individualData
 		TravelerValueExpectation invoke()
 		TravelerCustomerJourney provideData()
 		TravelerCustomerJourney informEngagementDesign()
@@ -15,74 +48,44 @@ package "'TravelerContext' Aggregate" <<Rectangle>> {
 		String serviceRequirements
 		String demographics
 		String typicalBehaviors
-		TravelerContext segmentSpecifications
 		TravelerContext frame()
 	}
 	class IndividualCharacteristics <<(E,DarkSeaGreen) Entity>> {
 		String personalData
 		String healthData
 		String tripData
-		TravelerContext individualData
 		TravelerContext provideData()
 	}
 }
 package "'ValueSpaceTraveler' Aggregate" <<Rectangle>> {
-	class SimplyGoValueProposition2 <<(E,DarkSeaGreen) Entity>> {
+	class SimplyGoValueProposition2 <<(V,DarkSeaGreen) Value Object>> {
 		String healthCare
 		String travel
 		String immigration
-		TravelerValueExpectation valueProposition
+		TravelerValueExpectation inspiration
 		TravelerValueExpectation proposeSolutions()
 	}
-	class TravelerValueExpectation <<(E,DarkSeaGreen) Entity>> {
+	class TravelerValueExpectation <<(A,#fffab8) Aggregate Root>> {
 		String healthServices
 		String freeTravel
 		String serviceConsume
-		TravelerEngagementDesign expectations
-		SimplyGoValueProposition2 inspiration
+		TravelerContext personalNeeds
+		SimplyGoValueProposition2 valueProposition
 		SimplyGoValueProposition2 openSolutionSpace()
 		ServiceProviderEngagementDesign dictate()
 	}
 }
-package "'TravelerCustomerJourney' Aggregate" <<Rectangle>> {
-	class TravelerEngagementDesign <<(A,#fffab8) Aggregate Root>> {
-		String mobileApp
-		String browser
-		String onlineBookingPattern
-		TravelerResourceIntegration businessData
-		TravelerResourceExchange accessPoints
-		TravelerResourceIntegration integrateResources()
-		TravelerResourceExchange enableResourceExchange()
-	}
-	class TravelerResourceIntegration <<(E,DarkSeaGreen) Entity>> {
-		String personalData
-		String healthData
-		String tripData
-		TravelerValueCocreation ownContribution
-	}
-	class TravelerResourceExchange <<(E,DarkSeaGreen) Entity>> {
-		String entryRegulations
-		String healthCareAccess
-		String serviceProvision
-		TravelerValueCocreation externalContribution
-	}
-	class TravelerValueCocreation <<(V,DarkSeaGreen) Value Object>> {
-		String personalizedTravelInformation
-		String improvedTravelConditions
-		void valueInUse()
-	}
-}
-TravelerContext --> TravelerValueExpectation : personalNeeds
-TravelerContext --> TravelerEngagementDesign : engagementPreferences
-TargetSegments --> TravelerContext : segmentSpecifications
-IndividualCharacteristics --> TravelerContext : individualData
-SimplyGoValueProposition2 --> TravelerValueExpectation : valueProposition
-TravelerValueExpectation --> TravelerEngagementDesign : expectations
-TravelerValueExpectation --> SimplyGoValueProposition2 : inspiration
-TravelerEngagementDesign --> TravelerResourceIntegration : businessData
-TravelerEngagementDesign --> TravelerResourceExchange : accessPoints
-TravelerResourceIntegration --> TravelerValueCocreation : ownContribution
-TravelerResourceExchange --> TravelerValueCocreation : externalContribution
+TravelerServiceforServiceExchange --> TravelerContext : engagementPreferences
+TravelerServiceforServiceExchange --> TravelerValueExpectation : expectations
+TravelerServiceforServiceExchange --> TravelerResourceIntegration : travelerData
+TravelerServiceforServiceExchange --> TravelerResourceExchange : externalData
+TravelerResourceIntegration --> TravelerEngagementDesign : customerJourney
+TravelerResourceExchange --> TravelerEngagementDesign : externalResourceAccess
+TravelerContext --> TargetSegments : segmentSpecifications
+TravelerContext --> IndividualCharacteristics : individualData
+SimplyGoValueProposition2 --> TravelerValueExpectation : inspiration
+TravelerValueExpectation --> TravelerContext : personalNeeds
+TravelerValueExpectation --> SimplyGoValueProposition2 : valueProposition
 legend left
   This bounded context implements the subdomain 'TravelerDomain'.
 end legend

@@ -36,7 +36,6 @@ ContextMap SimplyGo {
 		implementationTechnology = "Context"
 	}
 	
-	
 	Traveler <-> SimplyGo {
 		implementationTechnology = "System of Interaction"
 	}
@@ -68,10 +67,14 @@ BoundedContext MarketEnvironment implements MarketEnvironmentDomain {
 			aggregateRoot
 			String serviceEcoystemEnvironment
 			def serviceSystem influenceDesign;
+			
+			- CulturalContexts culturalDesignAspects
+			- TechnologicalTrends technologicalInfluence
+			- EconomicalTrends economicAndLegalInfluence
+			
 		}
 		
 		Entity CulturalContexts {
-			- MarketContext culturalDesignAspects
 			String ageGroupSpecifics
 			String ethicalConventions
 			String languages
@@ -79,7 +82,6 @@ BoundedContext MarketEnvironment implements MarketEnvironmentDomain {
 		}
 		
 		Entity TechnologicalTrends {
-			- MarketContext technologicalInfluence
 			String trends
 			String standards
 			String norms
@@ -87,7 +89,6 @@ BoundedContext MarketEnvironment implements MarketEnvironmentDomain {
 		}
 		
 		Entity EconomicalTrends {
-			- MarketContext economicAndLegalInfluence
 			String covid19
 			String legalActions
 			String changingConsumerBehavior
@@ -98,19 +99,57 @@ BoundedContext MarketEnvironment implements MarketEnvironmentDomain {
 
 BoundedContext Traveler implements TravelerDomain {
 	domainVisionStatement = "This context represents the design aspects of the travelers' value cocreation journey."
+	Aggregate TravelerCustomerJourney {
+		
+		
+		Entity TravelerServiceforServiceExchange {
+			aggregateRoot
+			String serviceExperience
+			def personalResourceIntegration;
+			def externalResourceConsumption;
+			def valueCocreation;
+			- TravelerContext engagementPreferences
+			- TravelerValueExpectation expectations
+			- TravelerResourceIntegration travelerData
+			- TravelerResourceExchange externalData
+		}
+		
+		ValueObject TravelerResourceIntegration {
+			String personalData
+			String healthData
+			String tripData
+			def provideTravelerData;
+			- TravelerEngagementDesign customerJourney			
+		}
+		
+		Entity TravelerEngagementDesign {
+			String mobileApp
+			String browser
+			String onlineBookingPattern
+			def TravelerResourceIntegration integrateResources;
+			def TravelerResourceExchange enableResourceExchange;
+		}
+		
+	Entity TravelerResourceExchange {
+			String entryRegulations
+			String healthCare
+			String services
+			def integrateExternalResources;
+			- TravelerEngagementDesign externalResourceAccess
+		}
+	}
 	Aggregate TravelerContext {
 		
 		Entity TravelerContext {
 			aggregateRoot
-			- TravelerValueExpectation personalNeeds
-			- TravelerEngagementDesign engagementPreferences
 			def TravelerValueExpectation invoke;
 			def TravelerCustomerJourney provideData;
 			def TravelerCustomerJourney informEngagementDesign;
+			- TargetSegments segmentSpecifications
+			- IndividualCharacteristics individualData
 		}
 		
 		Entity TargetSegments {
-			- TravelerContext segmentSpecifications
 			String painsAndGains
 			String serviceRequirements
 			String demographics
@@ -118,7 +157,6 @@ BoundedContext Traveler implements TravelerDomain {
 			def TravelerContext frame;
 		}
 		Entity IndividualCharacteristics {
-			- TravelerContext individualData
 			String personalData
 			String healthData
 			String tripData
@@ -126,56 +164,25 @@ BoundedContext Traveler implements TravelerDomain {
 		}
 	}
 	Aggregate ValueSpaceTraveler {
-		Entity SimplyGoValueProposition2 {
-			- TravelerValueExpectation valueProposition
+		ValueObject SimplyGoValueProposition2 {
 			String healthCare
 			String travel
 			String immigration
 			def TravelerValueExpectation proposeSolutions;
+			- TravelerValueExpectation inspiration
 		}
-		Entity TravelerValueExpectation {
-			- TravelerEngagementDesign expectations
-			- SimplyGoValueProposition2 inspiration 
+		ValueObject TravelerValueExpectation {
+			aggregateRoot
 			String healthServices
 			String freeTravel
 			String serviceConsume
 			def SimplyGoValueProposition2 openSolutionSpace;
 			def ServiceProviderEngagementDesign dictate;
+			- TravelerContext personalNeeds
+			- SimplyGoValueProposition2 valueProposition
 		}
 	}
-	Aggregate TravelerCustomerJourney {
-		Entity TravelerEngagementDesign {
-			aggregateRoot
-			String mobileApp
-			String browser
-			String onlineBookingPattern
-			- TravelerResourceIntegration businessData
-			- TravelerResourceExchange accessPoints
-			def TravelerResourceIntegration integrateResources;
-			def TravelerResourceExchange enableResourceExchange;
-			
-		}
-		
-		Entity TravelerResourceIntegration {
-			- TravelerValueCocreation ownContribution
-			String personalData
-			String healthData
-			String tripData
-			
-		}
-		
-		Entity TravelerResourceExchange {
-			- TravelerValueCocreation externalContribution
-			String entryRegulations
-			String healthCareAccess
-			String serviceProvision
-		}
-		ValueObject TravelerValueCocreation{
-			String personalizedTravelInformation
-			String improvedTravelConditions
-			def valueInUse;
-		}
-	}
+	
 }
 
 BoundedContext ServiceProvider implements ServiceProviderDomain {
@@ -183,80 +190,87 @@ BoundedContext ServiceProvider implements ServiceProviderDomain {
 	Aggregate ServiceProviderContext {
 		Entity ServiceProviderContext {
 			aggregateRoot
-			/*- ServiceProviderData businessData*/
-			- ServiceProviderValueExpectation businessNeeds
-			- ServiceProviderEngagementDesign engagementPreferences
+			String serviceProviderBusinessNeeds
+			String serviceProviderData
 			def ServiceProviderValueExpectation invoke;
 			def ServiceProviderCustomerJourney provideData;
 			def ServiceProviderCustomerJourney informEngagementDesign;
+			- BusinessNeeds businessNeeds
+			- BusinessCharacteristics businessData
+		}
+		
+		Entity BusinessNeeds {
+			String businessOperation
+			String customerData
+			String smartIntegration
+			def ServiceProviderContext shapes;
+			- BusinessCharacteristics businessData
+			- LegalObligations requiredFunctionalities
 		}
 		
 		Entity BusinessCharacteristics 	{
-			- BusinessNeeds businessCharacteristics
 			String branch
 			String sizeOfBusiness
 			String location
 			String visitorData
 			def BusinessNeeds impact;
 		}
+		
 		Entity LegalObligations {
-			- BusinessNeeds requiredFunctionalites
 			String hygieneMeasures
 			String attendanceLimits
 			String visitorTracing
 			def BusinessNeeds invokes;
 		}
-		Entity BusinessNeeds {
-			- ServiceProviderContext businessNeeds
-			String businessOperation
-			String customerData
-			String smartIntegration
-			def ServiceProviderContext shapes;
-		}
 	}
 	Aggregate ValueSpaceServiceProvider {
 		Entity SimplyGoValueProposition1 {
-			- ServiceProviderValueExpectation valueProposition
 			String legalCompliance
 			String businessOperation
 			def ServiceProviderValueExpectation proposeSolutions;
+			- ServiceProviderValueExpectation inspiration
 		}
 		
 		Entity ServiceProviderValueExpectation {
 			aggregateRoot
 			String profit
 			String businessOperation
-			- ServiceProviderEngagementDesign expectations
-			- SimplyGoValueProposition1 inspiration 
 			def SimplyGoValueProposition1 openSolutionSpace;
-			def ServiceProviderEngagementDesign dictate;			
+			def ServiceProviderEngagementDesign dictate;		
+			- ServiceProviderContext businessNeeds
+			- SimplyGoValueProposition1 valueProposition
 		}
 	}
 	Aggregate ServiceProviderCustomerJourney {
-		Entity ServiceProviderEngagementDesign {
+		
+		Entity ServiceProviderServiceForServiceExchange {
 			aggregateRoot
-			String mobileApp
+			String serviceExperience
+			- ServiceProviderValueExpectation expectations
+			- ServiceProviderContext engagementPreferences
 			- ServiceProviderResourceIntegration businessData
-			- ServiceProviderResourceExchange accessPoints
+			- ServiceProviderResourceExchange externalData
+		}
+		
+		ValueObject ServiceProviderResourceIntegration {
+			String businessData
+			String customerData
+			def provide businessData;
+			- ServiceProviderEngagementDesign customerJourney
+		}
+		
+		Entity ServiceProviderEngagementDesign {
+			
+			String mobileApp
 			def ServiceProviderResourceIntegration integrateResources;
 			def ServiceProviderResourceExchange enableResourceExchange;
 		}
 		
-		Entity ServiceProviderResourceIntegration {
-			- ServiceProviderValueCocreation ownContribution
-			String businessData
-			String customerData
-		}
-		
 		Entity ServiceProviderResourceExchange {
-			- ServiceProviderValueCocreation externalContribution
 			String customerData
 			String legalObligations
-		}
-		
-		ValueObject ServiceProviderValueCocreation{
-			String businessOperation
-			def valueInUse;
+			def integrateExternalResources;
+			- ServiceProviderEngagementDesign externalResourceAccess
 		}
 	}
 }
@@ -267,75 +281,82 @@ BoundedContext ImmigrationAuthorities implements ImmigrationAuthoritiesDomain {
 		
 		Entity ImmigrationAuthorityContext {
 			aggregateRoot
-			- ImmigrationAuthorityValueExpectation regulatoryNeeds
-			- ImmigrationAuthorityEngagementDesign engagementPreferences
 			def ImmigrationAuthorityValueExpectation invoke;
 			def ImmigrationAuthorityCustomerJourney provideData;
 			def ImmigrationAuthorityCustomerJourney informEngagementDesign;
+			- RegulatoryNeeds regulatoryNeeds
+			- ImmigrationauthorityCharacteristics regulatoryData
 		}
 		
 		Entity ImmigrationauthorityCharacteristics 	{
-			- ImmigrationAuthorityContext regulatoryData
 			String entryRegulations
 			String entryProcedures
 			def ImmigrationAuthorityContext impact;
 		}
 		Entity RegulatoryNeeds {
-			- ImmigrationAuthorityContext regulatoryNeeds
 			String travelerData
 			String distributionOfNewsandInfos
 			def ImmigrationAuthorityContext inform;
 		}
 	}
+	
 	Aggregate ImmigrationAuhtorityValueSpace {
 		Entity SimplyGoValueProposition3 {
-			- ImmigrationAuthorityValueExpectation valueProposition
 			String regulationsDistribution
 			String seamlessTravelerDataDistribution
 			String seamlessImmigration
 			String populationProtection
 			String publicOrder
 			def ImmigrationAuthorityValueExpectation proposeSolutions;
+			- ImmigrationAuthorityValueExpectation inspiration
 		}
 		
 		Entity ImmigrationAuthorityValueExpectation {
 			aggregateRoot
-			- SimplyGoValueProposition3 inspiration
-			- ImmigrationAuthorityEngagementDesign expectations
 			String populationProtection
 			String publicOrder
 			def SimplyGoValueProposition3 openSolutionSpace;
 			def ImmigrationAuthorityEngagementDesign dictate;	
+			- SimplyGoValueProposition3 valueProposition
+			- ImmigrationAuthorityContext regulatoryNeeds
 		}
 	}
+	
 	Aggregate ImmigrationAuthorityCustomerJourney {
-		Entity ImmigrationAuthorityEngagementDesign {
+		Entity ImmigrationAuthorityServiceForServiceExchange {
 			aggregateRoot
+			String serviceExperience
+			def valueCocreation;
+			def resourceIntegration;
+			def resourceConsumption;
+			- ImmigrationAuthorityContext engagementPreferences
+			- ImmigrationAuthorityValueExpectation expectations
+			- ImmigrationAuthorityResourceIntegration regulatoryData
+			- ImmigrationAuthorityResourceExchange externalData
+		}
+		
+	ValueObject ImmigrationAuthorityResourceIntegration {
+			String entryRegulations
+			String entryProcedures
+			def provideRegulatoryData;
+			- ImmigrationAuthorityEngagementDesign customerJourney
+			
+		}
+		
+		Entity ImmigrationAuthorityEngagementDesign {
 			String existingDataExchangeChannels
 			String existingInformationDistributionChannels
-			- ImmigrationAuthorityResourceIntegration regulatoryData
-			- ImmigrationAuthorityResourceExchange accessPoints
 			def ImmigrationAuthorityResourceIntegration integrateResources;
 			def ImmigrationAuthorityResourceExchange enableResourceExchange;
 		}
 		
-		Entity ImmigrationAuthorityResourceIntegration {
-			- ImmigrationAuthorityValueCocreation ownContribution
-			String entryRegulations
-			String entryProcedures
-			
-		}
+
 		
 		Entity ImmigrationAuthorityResourceExchange {
-			- ImmigrationAuthorityValueCocreation externalContribution
 			String passengerData
+			def integrateExternalResources;
+			- ImmigrationAuthorityEngagementDesign externalResourceAccess
 			
-		}
-		
-		ValueObject ImmigrationAuthorityValueCocreation{
-			String improvedImmigration
-			String ambiguousHealthRegulation
-			def valueInUse;
 		}
 	}
 }
@@ -346,23 +367,20 @@ BoundedContext MedicalServiceProvider implements MedicalServiceProviderDomain {
 		
 		Entity MedicalServiceProviderContext {
 			aggregateRoot
-			- MedicalServiceProviderValueExpectation organizationalNeeds
-			- MedicalServiceProviderEngagementDesign engagementPreferences
 			def MedicalServiceProviderValueExpectation invoke;
 			def MedicalServiceProviderCustomerJourney provideData;
 			def MedicalServiceProviderCustomerJourney informEngagementDesign;
-			
+			- MedicalServiceProviderChracteristics institutionalData
+			- OrganizationalNeeds patientData
 		}
 		
 		Entity MedicalServiceProviderChracteristics {
-			- MedicalServiceProviderContext institutionalData
 			String testCenterLocation
 			String testResults
 			String patienVaccinationStatus
 			def MedicalServiceProviderContext inform;
 		}
 		Entity OrganizationalNeeds {
-			- MedicalServiceProviderContext patientData
 			String patientPersonalData
 			String patientHealthData
 			String patientDataDistribution
@@ -371,53 +389,61 @@ BoundedContext MedicalServiceProvider implements MedicalServiceProviderDomain {
 	}
 	Aggregate MedicalServiceProviderValueSpace {
 		Entity SimplyGoValueProposition4 {
-			- MedicalServiceProviderValueExpectation valueProposition
 			String travelerPersonalData
 			String travelerHealthData
 			def MedicalServiceProviderValueExpectation proposeSolutions;
+			- MedicalServiceProviderValueExpectation inspiration
 		}
+		
 		Entity MedicalServiceProviderValueExpectation {
 			aggregateRoot
-			- SimplyGoValueProposition4 inspiration
-			- MedicalServiceProviderEngagementDesign expectations
 			String globalDataDistribution
 			String multilingualAccess
 			String operationEfficiency
 			def SimplyGoValueProposition4 openSolutionSpace;
-			def MedicalServiceProviderEngagementDesign dictate;	
+			def MedicalServiceProviderEngagementDesign dictate;
+			- MedicalServiceProviderContext organizationalNeeds
+			- SimplyGoValueProposition4 valueProposition
 		}
 	}
 	Aggregate MedicalServiceProviderCustomerJourney {
 		
-		Entity MedicalServiceProviderEngagementDesign {
+		Entity MedicalServiceProviderServiceForServiceExchange{
 			aggregateRoot
-			String existingTestProcedures
-			String existingDataDistributionPatterns
-			- MedicalServiceProviderResourceIntegration regulatoryData
-			- MedicalServiceProviderResourceExchange accessPoints
-			def MedicalServiceProviderResourceIntegration integrateResources;
-			def MedicalServiceProviderResourceExchange enableResourceExchange;
+			String valueExperience
+			def personalResourceIntegration;
+			def externalResourceConsumption;
+			def valueCocreation;
+			- MedicalServiceProviderContext engagementPreferences
+			- MedicalServiceProviderValueExpectation expecations
+			- MedicalServiceProviderResourceIntegration healthData
+			- MedicalServiceProviderResourceExchange externalData
 		}
 		
-		Entity MedicalServiceProviderResourceIntegration {
-			- MedicalServiceProviderValueCocreation ownContribution
+		ValueObject MedicalServiceProviderResourceIntegration {
 			String locationData
 			String patientPersonalData
 			String patientHealthData
 			String patientTestResults
+			def provideHealthData;
+			- MedicalServiceProviderEngagementDesign customerJourney
 		}
+		
+		Entity MedicalServiceProviderEngagementDesign {
+			
+			String existingTestProcedures
+			String existingDataDistributionPatterns
+			def MedicalServiceProviderResourceIntegration integrateResources;
+			def MedicalServiceProviderResourceExchange enableResourceExchange;
+		}
+		
+
 		
 		Entity MedicalServiceProviderResourceExchange {
-			- MedicalServiceProviderValueCocreation externalContribution
 			String patientPersonalData
 			String regulatoryData
-		}
-		
-		ValueObject MedicalServiceProviderValueCocreation{
-			String seamlessDataExchange
-			String improvedEfficiency
-			String improvedEffectiveness
-			def valueInUse;
+			def integrateExternalResources;
+			- MedicalServiceProviderEngagementDesign externalResourceAccess
 		}
 	}
 }
@@ -426,108 +452,124 @@ BoundedContext SITA implements SITADomain {
 	domainVisionStatement = "This context represents the integration of SITA's external competences into the service system."
 	Aggregate ResourceIntegration {
 		Entity PassengerData {
-			- DataProvision passengerData
 			String personalData
 			String healthData
 		}
 		ValueObject DataProvision {
 			aggregateRoot
-			String toImmigrationAuthorities
+			String sitaAirportNetwork
 			def ImmigrationAuthority transmittPassengerData;
+			- PassengerData passengerData
 		}
 	}
 }
 
 BoundedContext SimplyGo implements SimplyGoPlatformDomain {
 	domainVisionStatement = "This context represents the integration and orchestration of actors and their resources inside the platform for service exchange."
-	Aggregate TravelerEngagement {
-		Entity TravelerCustomerJourney {
-			
-			- TravelerServiceExchange interaction
-			String travelerPreferredTouchpoints
-			String travelerEngagementPatterns
-			def TravelerServiceExchange provideTouchpoints;
-		}
-		Entity TravelerServiceExchange {
+	
+	Aggregate SITA {
+		Entity SITAPlatform{
 			aggregateRoot
-			- CommunicationIntermediary travelerData
-			String resourceIntegration
-			String externalDataAccess
-			def CommunicationIntermediary resourceIntegration;
+			String passengerData
+			def ImmigrationAuthorityEngagement forwardData;
+			- CommunicationIntermediary passengerData
 		}
 	}
-	Aggregate MedicalServiceProviderEngagement {
-		Entity MedicalServiceProviderCustomerJourney {
-			
-			- MedicalServiceProviderServiceExchange interaction
-			String travelerPreferredTouchpoints
-			String travelerEngagementPatterns
-			def MedicalServiceProviderServiceExchange provideTouchpoints;
-		}
-		Entity MedicalServiceProviderServiceExchange {
-			aggregateRoot
-			- CommunicationIntermediary medicalServiceProviderData
-			String resourceIntegration
-			String externalDataAccess
-			def CommunicationIntermediary resourceIntegration;
-		}
-	}
-	Aggregate ImmigrationAuthorityEngagement {
-		Entity ImmigrationAuthorityCustomerJourney {
-			
-			- ImmigrationAuthorityServiceExchange interaction
-			String travelerPreferredTouchpoints
-			String travelerEngagementPatterns
-			def ImmigrationAuthorityServiceExchange provideTouchpoints;
-		}
-		Entity ImmigrationAuthorityServiceExchange {
-			aggregateRoot
-			- CommunicationIntermediary immigrationAuthorityData
-			String resourceIntegration
-			String externalDataAccess
-			def CommunicationIntermediary resourceIntegration;
-		}
-	}
-	Aggregate ServiceProviderEngagement {
-		Entity ServiceProviderCustomerJourney {
-			
-			- ServiceProviderServiceExchange interaction
-			String travelerPreferredTouchpoints
-			String travelerEngagementPatterns
-			def ServieProviderServiceExchange provideTouchpoints;
-		}
-		Entity ServiceProviderServiceExchange {
-			aggregateRoot
-			- CommunicationIntermediary serviceProviderData
-			String resourceIntegration
-			String externalDataAccess
-			def CommunicationIntermediary resourceIntegration;
-		}
-	}
+	
 	Aggregate ResourceOrchestration {
+
 		Entity CommunicationIntermediary {
 			aggregateRoot
-			- TravelerServiceExchange externalData
-			- MedicalServiceProviderServiceExchange externalData
-			- ImmigrationAuthorityServiceExchange externalData
-			- ServiceProviderServiceExchange externalData
-			- SITAPlatform passengerData
 			String actors
 			String resources
 			def resourceOrchestration;
 			def actorOrchestration;
 			def e2eEncryption;
-			def security;	
+			def security;
+			- ImmigrationAuthorityServiceExchange regulatoryData
+			- ServiceProviderServiceExchange businessData
+			- TravelerServiceExchange travelerData
+			- MedicalServiceProviderServiceExchange healthData
+			
+				
 		}
 	}
-	Aggregate SITA {
-		Entity SITAPlatform{
+	
+	Aggregate ImmigrationAuthorityEngagement {
+		
+		ValueObject ImmigrationAuthorityCustomerJourney {
+			String travelerPreferredTouchpoints
+			String travelerEngagementPatterns
+			def ImmigrationAuthorityServiceExchange provideTouchpoints;
+		}
+		
+		Entity ImmigrationAuthorityServiceExchange {
 			aggregateRoot
-			- ImmigrationAuthorityServiceExchange passengerData
-			String passengerData
-			def ImmigrationAuthorityEngagement forwardData;
+			String resourceIntegration
+			String externalDataAccess
+			def CommunicationIntermediary resourceIntegration;
+			- ImmigrationAuthorityCustomerJourney interaction
+			- CommunicationIntermediary externalData
+			- SITAPlatform passengerData
+			
 		}
 	}
+	
+
+		
+	Aggregate ServiceProviderEngagement {
+		
+		ValueObject ServiceProviderCustomerJourney {
+			String travelerPreferredTouchpoints
+			String travelerEngagementPatterns
+			def ServieProviderServiceExchange provideTouchpoints;
+		}
+		
+		Entity ServiceProviderServiceExchange {
+			aggregateRoot
+			String resourceIntegration
+			String externalDataAccess
+			def CommunicationIntermediary resourceIntegration;
+			- ServiceProviderCustomerJourney interaction
+			- CommunicationIntermediary externalData
+		}
+	}	
+	Aggregate TravelerEngagement {
+		
+		ValueObject TravelerCustomerJourney {
+			String travelerPreferredTouchpoints
+			String travelerEngagementPatterns
+			def TravelerServiceExchange provideTouchpoints;
+		}
+		
+		Entity TravelerServiceExchange {
+			aggregateRoot
+			String resourceIntegration
+			String externalDataAccess
+			def CommunicationIntermediary resourceIntegration;
+			- TravelerCustomerJourney interaction
+			- CommunicationIntermediary externalData
+		}
+	}
+	Aggregate MedicalServiceProviderEngagement {
+		
+		ValueObject MedicalServiceProviderCustomerJourney {
+			String travelerPreferredTouchpoints
+			String travelerEngagementPatterns
+			def MedicalServiceProviderServiceExchange provideTouchpoints;
+		}
+		
+		Entity MedicalServiceProviderServiceExchange {
+			aggregateRoot
+			String resourceIntegration
+			String externalDataAccess
+			def CommunicationIntermediary resourceIntegration;
+			- MedicalServiceProviderCustomerJourney interaction
+			- CommunicationIntermediary externalData
+		}
+	}
+	
+	
 }
 	
 

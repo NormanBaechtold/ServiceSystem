@@ -4,8 +4,8 @@ skinparam componentStyle uml2
 
 package "'ImmigrationAuthorityContext' Aggregate" <<Rectangle>> {
 	class ImmigrationAuthorityContext <<(A,#fffab8) Aggregate Root>> {
-		ImmigrationAuthorityValueExpectation regulatoryNeeds
-		ImmigrationAuthorityEngagementDesign engagementPreferences
+		RegulatoryNeeds regulatoryNeeds
+		ImmigrationauthorityCharacteristics regulatoryData
 		ImmigrationAuthorityValueExpectation invoke()
 		ImmigrationAuthorityCustomerJourney provideData()
 		ImmigrationAuthorityCustomerJourney informEngagementDesign()
@@ -13,13 +13,11 @@ package "'ImmigrationAuthorityContext' Aggregate" <<Rectangle>> {
 	class ImmigrationauthorityCharacteristics <<(E,DarkSeaGreen) Entity>> {
 		String entryRegulations
 		String entryProcedures
-		ImmigrationAuthorityContext regulatoryData
 		ImmigrationAuthorityContext impact()
 	}
 	class RegulatoryNeeds <<(E,DarkSeaGreen) Entity>> {
 		String travelerData
 		String distributionOfNewsandInfos
-		ImmigrationAuthorityContext regulatoryNeeds
 		ImmigrationAuthorityContext inform()
 	}
 }
@@ -30,53 +28,58 @@ package "'ImmigrationAuhtorityValueSpace' Aggregate" <<Rectangle>> {
 		String seamlessImmigration
 		String populationProtection
 		String publicOrder
-		ImmigrationAuthorityValueExpectation valueProposition
+		ImmigrationAuthorityValueExpectation inspiration
 		ImmigrationAuthorityValueExpectation proposeSolutions()
 	}
 	class ImmigrationAuthorityValueExpectation <<(A,#fffab8) Aggregate Root>> {
 		String populationProtection
 		String publicOrder
-		SimplyGoValueProposition3 inspiration
-		ImmigrationAuthorityEngagementDesign expectations
+		SimplyGoValueProposition3 valueProposition
+		ImmigrationAuthorityContext regulatoryNeeds
 		SimplyGoValueProposition3 openSolutionSpace()
 		ImmigrationAuthorityEngagementDesign dictate()
 	}
 }
 package "'ImmigrationAuthorityCustomerJourney' Aggregate" <<Rectangle>> {
-	class ImmigrationAuthorityEngagementDesign <<(A,#fffab8) Aggregate Root>> {
+	class ImmigrationAuthorityServiceForServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		String serviceExperience
+		ImmigrationAuthorityContext engagementPreferences
+		ImmigrationAuthorityValueExpectation expectations
+		ImmigrationAuthorityResourceIntegration regulatoryData
+		ImmigrationAuthorityResourceExchange externalData
+		void valueCocreation()
+		void resourceIntegration()
+		void resourceConsumption()
+	}
+	class ImmigrationAuthorityResourceIntegration <<(V,DarkSeaGreen) Value Object>> {
+		String entryRegulations
+		String entryProcedures
+		ImmigrationAuthorityEngagementDesign customerJourney
+		void provideRegulatoryData()
+	}
+	class ImmigrationAuthorityEngagementDesign <<(E,DarkSeaGreen) Entity>> {
 		String existingDataExchangeChannels
 		String existingInformationDistributionChannels
-		ImmigrationAuthorityResourceIntegration regulatoryData
-		ImmigrationAuthorityResourceExchange accessPoints
 		ImmigrationAuthorityResourceIntegration integrateResources()
 		ImmigrationAuthorityResourceExchange enableResourceExchange()
 	}
-	class ImmigrationAuthorityResourceIntegration <<(E,DarkSeaGreen) Entity>> {
-		String entryRegulations
-		String entryProcedures
-		ImmigrationAuthorityValueCocreation ownContribution
-	}
 	class ImmigrationAuthorityResourceExchange <<(E,DarkSeaGreen) Entity>> {
 		String passengerData
-		ImmigrationAuthorityValueCocreation externalContribution
-	}
-	class ImmigrationAuthorityValueCocreation <<(V,DarkSeaGreen) Value Object>> {
-		String improvedImmigration
-		String ambiguousHealthRegulation
-		void valueInUse()
+		ImmigrationAuthorityEngagementDesign externalResourceAccess
+		void integrateExternalResources()
 	}
 }
-ImmigrationAuthorityContext --> ImmigrationAuthorityValueExpectation : regulatoryNeeds
-ImmigrationAuthorityContext --> ImmigrationAuthorityEngagementDesign : engagementPreferences
-ImmigrationauthorityCharacteristics --> ImmigrationAuthorityContext : regulatoryData
-RegulatoryNeeds --> ImmigrationAuthorityContext : regulatoryNeeds
-SimplyGoValueProposition3 --> ImmigrationAuthorityValueExpectation : valueProposition
-ImmigrationAuthorityValueExpectation --> SimplyGoValueProposition3 : inspiration
-ImmigrationAuthorityValueExpectation --> ImmigrationAuthorityEngagementDesign : expectations
-ImmigrationAuthorityEngagementDesign --> ImmigrationAuthorityResourceIntegration : regulatoryData
-ImmigrationAuthorityEngagementDesign --> ImmigrationAuthorityResourceExchange : accessPoints
-ImmigrationAuthorityResourceIntegration --> ImmigrationAuthorityValueCocreation : ownContribution
-ImmigrationAuthorityResourceExchange --> ImmigrationAuthorityValueCocreation : externalContribution
+ImmigrationAuthorityContext --> RegulatoryNeeds : regulatoryNeeds
+ImmigrationAuthorityContext --> ImmigrationauthorityCharacteristics : regulatoryData
+SimplyGoValueProposition3 --> ImmigrationAuthorityValueExpectation : inspiration
+ImmigrationAuthorityValueExpectation --> SimplyGoValueProposition3 : valueProposition
+ImmigrationAuthorityValueExpectation --> ImmigrationAuthorityContext : regulatoryNeeds
+ImmigrationAuthorityServiceForServiceExchange --> ImmigrationAuthorityContext : engagementPreferences
+ImmigrationAuthorityServiceForServiceExchange --> ImmigrationAuthorityValueExpectation : expectations
+ImmigrationAuthorityServiceForServiceExchange --> ImmigrationAuthorityResourceIntegration : regulatoryData
+ImmigrationAuthorityServiceForServiceExchange --> ImmigrationAuthorityResourceExchange : externalData
+ImmigrationAuthorityResourceIntegration --> ImmigrationAuthorityEngagementDesign : customerJourney
+ImmigrationAuthorityResourceExchange --> ImmigrationAuthorityEngagementDesign : externalResourceAccess
 legend left
   This bounded context implements the subdomain 'ImmigrationAuthoritiesDomain'.
 end legend

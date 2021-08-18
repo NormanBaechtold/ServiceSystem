@@ -3,32 +3,35 @@
 skinparam componentStyle uml2
 
 package "'ServiceProviderCustomerJourney' Aggregate" <<Rectangle>> {
-	class ServiceProviderEngagementDesign <<(A,#fffab8) Aggregate Root>> {
-		String mobileApp
+	class ServiceProviderServiceForServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		String serviceExperience
+		ServiceProviderValueExpectation expectations
+		ServiceProviderContext engagementPreferences
 		ServiceProviderResourceIntegration businessData
-		ServiceProviderResourceExchange accessPoints
-		ServiceProviderResourceIntegration integrateResources()
-		ServiceProviderResourceExchange enableResourceExchange()
+		ServiceProviderResourceExchange externalData
 	}
-	class ServiceProviderResourceIntegration <<(E,DarkSeaGreen) Entity>> {
+	class ServiceProviderResourceIntegration <<(V,DarkSeaGreen) Value Object>> {
 		String businessData
 		String customerData
-		ServiceProviderValueCocreation ownContribution
+		ServiceProviderEngagementDesign customerJourney
+		provide businessData()
+	}
+	class ServiceProviderEngagementDesign <<(E,DarkSeaGreen) Entity>> {
+		String mobileApp
+		ServiceProviderResourceIntegration integrateResources()
+		ServiceProviderResourceExchange enableResourceExchange()
 	}
 	class ServiceProviderResourceExchange <<(E,DarkSeaGreen) Entity>> {
 		String customerData
 		String legalObligations
-		ServiceProviderValueCocreation externalContribution
-	}
-	class ServiceProviderValueCocreation <<(V,DarkSeaGreen) Value Object>> {
-		String businessOperation
-		void valueInUse()
+		ServiceProviderEngagementDesign externalResourceAccess
+		void integrateExternalResources()
 	}
 }
-ServiceProviderEngagementDesign --> ServiceProviderResourceIntegration : businessData
-ServiceProviderEngagementDesign --> ServiceProviderResourceExchange : accessPoints
-ServiceProviderResourceIntegration --> ServiceProviderValueCocreation : ownContribution
-ServiceProviderResourceExchange --> ServiceProviderValueCocreation : externalContribution
+ServiceProviderServiceForServiceExchange --> ServiceProviderResourceIntegration : businessData
+ServiceProviderServiceForServiceExchange --> ServiceProviderResourceExchange : externalData
+ServiceProviderResourceIntegration --> ServiceProviderEngagementDesign : customerJourney
+ServiceProviderResourceExchange --> ServiceProviderEngagementDesign : externalResourceAccess
 
 
 @enduml

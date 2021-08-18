@@ -3,33 +3,38 @@
 skinparam componentStyle uml2
 
 package "'ImmigrationAuthorityCustomerJourney' Aggregate" <<Rectangle>> {
-	class ImmigrationAuthorityEngagementDesign <<(A,#fffab8) Aggregate Root>> {
+	class ImmigrationAuthorityServiceForServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		String serviceExperience
+		ImmigrationAuthorityContext engagementPreferences
+		ImmigrationAuthorityValueExpectation expectations
+		ImmigrationAuthorityResourceIntegration regulatoryData
+		ImmigrationAuthorityResourceExchange externalData
+		void valueCocreation()
+		void resourceIntegration()
+		void resourceConsumption()
+	}
+	class ImmigrationAuthorityResourceIntegration <<(V,DarkSeaGreen) Value Object>> {
+		String entryRegulations
+		String entryProcedures
+		ImmigrationAuthorityEngagementDesign customerJourney
+		void provideRegulatoryData()
+	}
+	class ImmigrationAuthorityEngagementDesign <<(E,DarkSeaGreen) Entity>> {
 		String existingDataExchangeChannels
 		String existingInformationDistributionChannels
-		ImmigrationAuthorityResourceIntegration regulatoryData
-		ImmigrationAuthorityResourceExchange accessPoints
 		ImmigrationAuthorityResourceIntegration integrateResources()
 		ImmigrationAuthorityResourceExchange enableResourceExchange()
 	}
-	class ImmigrationAuthorityResourceIntegration <<(E,DarkSeaGreen) Entity>> {
-		String entryRegulations
-		String entryProcedures
-		ImmigrationAuthorityValueCocreation ownContribution
-	}
 	class ImmigrationAuthorityResourceExchange <<(E,DarkSeaGreen) Entity>> {
 		String passengerData
-		ImmigrationAuthorityValueCocreation externalContribution
-	}
-	class ImmigrationAuthorityValueCocreation <<(V,DarkSeaGreen) Value Object>> {
-		String improvedImmigration
-		String ambiguousHealthRegulation
-		void valueInUse()
+		ImmigrationAuthorityEngagementDesign externalResourceAccess
+		void integrateExternalResources()
 	}
 }
-ImmigrationAuthorityEngagementDesign --> ImmigrationAuthorityResourceIntegration : regulatoryData
-ImmigrationAuthorityEngagementDesign --> ImmigrationAuthorityResourceExchange : accessPoints
-ImmigrationAuthorityResourceIntegration --> ImmigrationAuthorityValueCocreation : ownContribution
-ImmigrationAuthorityResourceExchange --> ImmigrationAuthorityValueCocreation : externalContribution
+ImmigrationAuthorityServiceForServiceExchange --> ImmigrationAuthorityResourceIntegration : regulatoryData
+ImmigrationAuthorityServiceForServiceExchange --> ImmigrationAuthorityResourceExchange : externalData
+ImmigrationAuthorityResourceIntegration --> ImmigrationAuthorityEngagementDesign : customerJourney
+ImmigrationAuthorityResourceExchange --> ImmigrationAuthorityEngagementDesign : externalResourceAccess
 
 
 @enduml

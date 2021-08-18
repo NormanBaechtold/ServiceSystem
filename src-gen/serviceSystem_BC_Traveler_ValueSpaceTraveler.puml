@@ -3,25 +3,25 @@
 skinparam componentStyle uml2
 
 package "'ValueSpaceTraveler' Aggregate" <<Rectangle>> {
-	class SimplyGoValueProposition2 <<(E,DarkSeaGreen) Entity>> {
+	class SimplyGoValueProposition2 <<(V,DarkSeaGreen) Value Object>> {
 		String healthCare
 		String travel
 		String immigration
-		TravelerValueExpectation valueProposition
+		TravelerValueExpectation inspiration
 		TravelerValueExpectation proposeSolutions()
 	}
-	class TravelerValueExpectation <<(E,DarkSeaGreen) Entity>> {
+	class TravelerValueExpectation <<(A,#fffab8) Aggregate Root>> {
 		String healthServices
 		String freeTravel
 		String serviceConsume
-		TravelerEngagementDesign expectations
-		SimplyGoValueProposition2 inspiration
+		TravelerContext personalNeeds
+		SimplyGoValueProposition2 valueProposition
 		SimplyGoValueProposition2 openSolutionSpace()
 		ServiceProviderEngagementDesign dictate()
 	}
 }
-SimplyGoValueProposition2 --> TravelerValueExpectation : valueProposition
-TravelerValueExpectation --> SimplyGoValueProposition2 : inspiration
+SimplyGoValueProposition2 --> TravelerValueExpectation : inspiration
+TravelerValueExpectation --> SimplyGoValueProposition2 : valueProposition
 
 
 @enduml

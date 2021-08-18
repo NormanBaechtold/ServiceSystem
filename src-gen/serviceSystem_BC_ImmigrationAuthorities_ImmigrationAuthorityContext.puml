@@ -4,8 +4,8 @@ skinparam componentStyle uml2
 
 package "'ImmigrationAuthorityContext' Aggregate" <<Rectangle>> {
 	class ImmigrationAuthorityContext <<(A,#fffab8) Aggregate Root>> {
-		ImmigrationAuthorityValueExpectation regulatoryNeeds
-		ImmigrationAuthorityEngagementDesign engagementPreferences
+		RegulatoryNeeds regulatoryNeeds
+		ImmigrationauthorityCharacteristics regulatoryData
 		ImmigrationAuthorityValueExpectation invoke()
 		ImmigrationAuthorityCustomerJourney provideData()
 		ImmigrationAuthorityCustomerJourney informEngagementDesign()
@@ -13,18 +13,16 @@ package "'ImmigrationAuthorityContext' Aggregate" <<Rectangle>> {
 	class ImmigrationauthorityCharacteristics <<(E,DarkSeaGreen) Entity>> {
 		String entryRegulations
 		String entryProcedures
-		ImmigrationAuthorityContext regulatoryData
 		ImmigrationAuthorityContext impact()
 	}
 	class RegulatoryNeeds <<(E,DarkSeaGreen) Entity>> {
 		String travelerData
 		String distributionOfNewsandInfos
-		ImmigrationAuthorityContext regulatoryNeeds
 		ImmigrationAuthorityContext inform()
 	}
 }
-ImmigrationauthorityCharacteristics --> ImmigrationAuthorityContext : regulatoryData
-RegulatoryNeeds --> ImmigrationAuthorityContext : regulatoryNeeds
+ImmigrationAuthorityContext --> RegulatoryNeeds : regulatoryNeeds
+ImmigrationAuthorityContext --> ImmigrationauthorityCharacteristics : regulatoryData
 
 
 @enduml

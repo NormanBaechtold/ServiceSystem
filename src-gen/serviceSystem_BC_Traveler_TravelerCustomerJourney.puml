@@ -3,37 +3,42 @@
 skinparam componentStyle uml2
 
 package "'TravelerCustomerJourney' Aggregate" <<Rectangle>> {
-	class TravelerEngagementDesign <<(A,#fffab8) Aggregate Root>> {
-		String mobileApp
-		String browser
-		String onlineBookingPattern
-		TravelerResourceIntegration businessData
-		TravelerResourceExchange accessPoints
-		TravelerResourceIntegration integrateResources()
-		TravelerResourceExchange enableResourceExchange()
+	class TravelerServiceforServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		String serviceExperience
+		TravelerContext engagementPreferences
+		TravelerValueExpectation expectations
+		TravelerResourceIntegration travelerData
+		TravelerResourceExchange externalData
+		void personalResourceIntegration()
+		void externalResourceConsumption()
+		void valueCocreation()
 	}
-	class TravelerResourceIntegration <<(E,DarkSeaGreen) Entity>> {
+	class TravelerResourceIntegration <<(V,DarkSeaGreen) Value Object>> {
 		String personalData
 		String healthData
 		String tripData
-		TravelerValueCocreation ownContribution
+		TravelerEngagementDesign customerJourney
+		void provideTravelerData()
+	}
+	class TravelerEngagementDesign <<(E,DarkSeaGreen) Entity>> {
+		String mobileApp
+		String browser
+		String onlineBookingPattern
+		TravelerResourceIntegration integrateResources()
+		TravelerResourceExchange enableResourceExchange()
 	}
 	class TravelerResourceExchange <<(E,DarkSeaGreen) Entity>> {
 		String entryRegulations
-		String healthCareAccess
-		String serviceProvision
-		TravelerValueCocreation externalContribution
-	}
-	class TravelerValueCocreation <<(V,DarkSeaGreen) Value Object>> {
-		String personalizedTravelInformation
-		String improvedTravelConditions
-		void valueInUse()
+		String healthCare
+		String services
+		TravelerEngagementDesign externalResourceAccess
+		void integrateExternalResources()
 	}
 }
-TravelerEngagementDesign --> TravelerResourceIntegration : businessData
-TravelerEngagementDesign --> TravelerResourceExchange : accessPoints
-TravelerResourceIntegration --> TravelerValueCocreation : ownContribution
-TravelerResourceExchange --> TravelerValueCocreation : externalContribution
+TravelerServiceforServiceExchange --> TravelerResourceIntegration : travelerData
+TravelerServiceforServiceExchange --> TravelerResourceExchange : externalData
+TravelerResourceIntegration --> TravelerEngagementDesign : customerJourney
+TravelerResourceExchange --> TravelerEngagementDesign : externalResourceAccess
 
 
 @enduml

@@ -4,8 +4,8 @@ skinparam componentStyle uml2
 
 package "'MedicalServiceProviderContext' Aggregate" <<Rectangle>> {
 	class MedicalServiceProviderContext <<(A,#fffab8) Aggregate Root>> {
-		MedicalServiceProviderValueExpectation organizationalNeeds
-		MedicalServiceProviderEngagementDesign engagementPreferences
+		MedicalServiceProviderChracteristics institutionalData
+		OrganizationalNeeds patientData
 		MedicalServiceProviderValueExpectation invoke()
 		MedicalServiceProviderCustomerJourney provideData()
 		MedicalServiceProviderCustomerJourney informEngagementDesign()
@@ -14,19 +14,17 @@ package "'MedicalServiceProviderContext' Aggregate" <<Rectangle>> {
 		String testCenterLocation
 		String testResults
 		String patienVaccinationStatus
-		MedicalServiceProviderContext institutionalData
 		MedicalServiceProviderContext inform()
 	}
 	class OrganizationalNeeds <<(E,DarkSeaGreen) Entity>> {
 		String patientPersonalData
 		String patientHealthData
 		String patientDataDistribution
-		MedicalServiceProviderContext patientData
 		MedicalServiceProviderContext inform()
 	}
 }
-MedicalServiceProviderChracteristics --> MedicalServiceProviderContext : institutionalData
-OrganizationalNeeds --> MedicalServiceProviderContext : patientData
+MedicalServiceProviderContext --> MedicalServiceProviderChracteristics : institutionalData
+MedicalServiceProviderContext --> OrganizationalNeeds : patientData
 
 
 @enduml

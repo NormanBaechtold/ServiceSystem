@@ -6,21 +6,21 @@ package "'MedicalServiceProviderValueSpace' Aggregate" <<Rectangle>> {
 	class SimplyGoValueProposition4 <<(E,DarkSeaGreen) Entity>> {
 		String travelerPersonalData
 		String travelerHealthData
-		MedicalServiceProviderValueExpectation valueProposition
+		MedicalServiceProviderValueExpectation inspiration
 		MedicalServiceProviderValueExpectation proposeSolutions()
 	}
 	class MedicalServiceProviderValueExpectation <<(A,#fffab8) Aggregate Root>> {
 		String globalDataDistribution
 		String multilingualAccess
 		String operationEfficiency
-		SimplyGoValueProposition4 inspiration
-		MedicalServiceProviderEngagementDesign expectations
+		MedicalServiceProviderContext organizationalNeeds
+		SimplyGoValueProposition4 valueProposition
 		SimplyGoValueProposition4 openSolutionSpace()
 		MedicalServiceProviderEngagementDesign dictate()
 	}
 }
-SimplyGoValueProposition4 --> MedicalServiceProviderValueExpectation : valueProposition
-MedicalServiceProviderValueExpectation --> SimplyGoValueProposition4 : inspiration
+SimplyGoValueProposition4 --> MedicalServiceProviderValueExpectation : inspiration
+MedicalServiceProviderValueExpectation --> SimplyGoValueProposition4 : valueProposition
 
 
 @enduml

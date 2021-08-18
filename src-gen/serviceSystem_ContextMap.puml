@@ -69,6 +69,10 @@ interface "Context" as SimplyGo_to_MarketEnvironment
 [MarketEnvironment] --> SimplyGo_to_MarketEnvironment
 SimplyGo_to_MarketEnvironment <.. [SimplyGo] : consume
 
+interface "Context" as SITA_to_MarketEnvironment
+[MarketEnvironment] --> SITA_to_MarketEnvironment
+SITA_to_MarketEnvironment <.. [SITA] : consume
+
 [Traveler]<-->[SimplyGo] : Shared Kernel (System of Interaction)
 
 [ServiceProvider]<-->[SimplyGo] : Shared Kernel (System of Interaction)

@@ -4,83 +4,85 @@ skinparam componentStyle uml2
 
 package "'MedicalServiceProviderContext' Aggregate" <<Rectangle>> {
 	class MedicalServiceProviderContext <<(A,#fffab8) Aggregate Root>> {
-		MedicalServiceProviderValueExpectation organizationalNeeds
-		MedicalServiceProviderEngagementDesign engagementPreferences
+		MedicalServiceProviderChracteristics institutionalData
+		OrganizationalNeeds patientData
 		MedicalServiceProviderValueExpectation invoke()
 		MedicalServiceProviderCustomerJourney provideData()
 		MedicalServiceProviderCustomerJourney informEngagementDesign()
 	}
 	class MedicalServiceProviderChracteristics <<(E,DarkSeaGreen) Entity>> {
-		String testCenterLocation
-		String testResults
-		String patienVaccinationStatus
-		MedicalServiceProviderContext institutionalData
+		testCenterLocation
+		testResults
+		patienVaccinationStatus
 		MedicalServiceProviderContext inform()
 	}
 	class OrganizationalNeeds <<(E,DarkSeaGreen) Entity>> {
-		String patientPersonalData
-		String patientHealthData
-		String patientDataDistribution
-		MedicalServiceProviderContext patientData
+		patientPersonalData
+		patientHealthData
+		patientDataDistribution
 		MedicalServiceProviderContext inform()
 	}
 }
 package "'MedicalServiceProviderValueSpace' Aggregate" <<Rectangle>> {
 	class SimplyGoValueProposition4 <<(E,DarkSeaGreen) Entity>> {
-		String travelerPersonalData
-		String travelerHealthData
-		MedicalServiceProviderValueExpectation valueProposition
+		travelerPersonalData
+		travelerHealthData
+		MedicalServiceProviderValueExpectation inspiration
 		MedicalServiceProviderValueExpectation proposeSolutions()
 	}
 	class MedicalServiceProviderValueExpectation <<(A,#fffab8) Aggregate Root>> {
-		String globalDataDistribution
-		String multilingualAccess
-		String operationEfficiency
-		SimplyGoValueProposition4 inspiration
-		MedicalServiceProviderEngagementDesign expectations
+		globalDataDistribution
+		multilingualAccess
+		operationEfficiency
+		MedicalServiceProviderContext organizationalNeeds
+		SimplyGoValueProposition4 valueProposition
 		SimplyGoValueProposition4 openSolutionSpace()
 		MedicalServiceProviderEngagementDesign dictate()
 	}
 }
 package "'MedicalServiceProviderCustomerJourney' Aggregate" <<Rectangle>> {
-	class MedicalServiceProviderEngagementDesign <<(A,#fffab8) Aggregate Root>> {
-		String existingTestProcedures
-		String existingDataDistributionPatterns
-		MedicalServiceProviderResourceIntegration regulatoryData
-		MedicalServiceProviderResourceExchange accessPoints
+	class MedicalServiceProviderServiceForServiceExchange <<(A,#fffab8) Aggregate Root>> {
+		valueExperience
+		MedicalServiceProviderContext engagementPreferences
+		MedicalServiceProviderValueExpectation expecations
+		MedicalServiceProviderResourceIntegration healthData
+		MedicalServiceProviderResourceExchange externalData
+		void personalResourceIntegration()
+		void externalResourceConsumption()
+		void valueCocreation()
+	}
+	class MedicalServiceProviderResourceIntegration <<(V,DarkSeaGreen) Value Object>> {
+		locationData
+		patientPersonalData
+		patientHealthData
+		patientTestResults
+		MedicalServiceProviderEngagementDesign customerJourney
+		void provideHealthData()
+	}
+	class MedicalServiceProviderEngagementDesign <<(E,DarkSeaGreen) Entity>> {
+		existingTestProcedures
+		existingDataDistributionPatterns
 		MedicalServiceProviderResourceIntegration integrateResources()
 		MedicalServiceProviderResourceExchange enableResourceExchange()
 	}
-	class MedicalServiceProviderResourceIntegration <<(E,DarkSeaGreen) Entity>> {
-		String locationData
-		String patientPersonalData
-		String patientHealthData
-		String patientTestResults
-		MedicalServiceProviderValueCocreation ownContribution
-	}
 	class MedicalServiceProviderResourceExchange <<(E,DarkSeaGreen) Entity>> {
-		String patientPersonalData
-		String regulatoryData
-		MedicalServiceProviderValueCocreation externalContribution
-	}
-	class MedicalServiceProviderValueCocreation <<(V,DarkSeaGreen) Value Object>> {
-		String seamlessDataExchange
-		String improvedEfficiency
-		String improvedEffectiveness
-		void valueInUse()
+		patientPersonalData
+		regulatoryData
+		MedicalServiceProviderEngagementDesign externalResourceAccess
+		void integrateExternalResources()
 	}
 }
-MedicalServiceProviderContext --> MedicalServiceProviderValueExpectation : organizationalNeeds
-MedicalServiceProviderContext --> MedicalServiceProviderEngagementDesign : engagementPreferences
-MedicalServiceProviderChracteristics --> MedicalServiceProviderContext : institutionalData
-OrganizationalNeeds --> MedicalServiceProviderContext : patientData
-SimplyGoValueProposition4 --> MedicalServiceProviderValueExpectation : valueProposition
-MedicalServiceProviderValueExpectation --> SimplyGoValueProposition4 : inspiration
-MedicalServiceProviderValueExpectation --> MedicalServiceProviderEngagementDesign : expectations
-MedicalServiceProviderEngagementDesign --> MedicalServiceProviderResourceIntegration : regulatoryData
-MedicalServiceProviderEngagementDesign --> MedicalServiceProviderResourceExchange : accessPoints
-MedicalServiceProviderResourceIntegration --> MedicalServiceProviderValueCocreation : ownContribution
-MedicalServiceProviderResourceExchange --> MedicalServiceProviderValueCocreation : externalContribution
+MedicalServiceProviderContext --> MedicalServiceProviderChracteristics : institutionalData
+MedicalServiceProviderContext --> OrganizationalNeeds : patientData
+SimplyGoValueProposition4 --> MedicalServiceProviderValueExpectation : inspiration
+MedicalServiceProviderValueExpectation --> MedicalServiceProviderContext : organizationalNeeds
+MedicalServiceProviderValueExpectation --> SimplyGoValueProposition4 : valueProposition
+MedicalServiceProviderServiceForServiceExchange --> MedicalServiceProviderContext : engagementPreferences
+MedicalServiceProviderServiceForServiceExchange --> MedicalServiceProviderValueExpectation : expecations
+MedicalServiceProviderServiceForServiceExchange --> MedicalServiceProviderResourceIntegration : healthData
+MedicalServiceProviderServiceForServiceExchange --> MedicalServiceProviderResourceExchange : externalData
+MedicalServiceProviderResourceIntegration --> MedicalServiceProviderEngagementDesign : customerJourney
+MedicalServiceProviderResourceExchange --> MedicalServiceProviderEngagementDesign : externalResourceAccess
 legend left
   This bounded context implements the subdomain 'MedicalServiceProviderDomain'.
 end legend
