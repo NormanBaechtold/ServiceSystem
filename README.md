@@ -5,7 +5,7 @@ Contains a multi-level design framework for designing service systems.
 
 # Content
 
-**SimplyGo_ServiceSystem** holds the framework, based on a real-life use-case of the digital Platform "SimplyGo". The framework consits of...
+**SimplyGo_ServiceSystem** holds the framework, based on a real-life use-case of the digital platform "SimplyGo". The framework consits of...
 
  - A Context Map ("SimplyGo_ContextMap.png")
  - A complete view of the SimplyGo service system ("SimplyGo_ServiceSystem.png")
