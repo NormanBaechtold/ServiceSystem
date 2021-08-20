@@ -16,6 +16,6 @@ Contains a multi-level design framework for designing service systems.
 Other folders hold code of a project to create the SimplyGo framework, using ContextMapper and PlantUML. 
 
 ## Usage
-This repository is part of its author's master's thesis "Microfoundations of Value Cocreation: Using a Multilevel Design Approach to build Systems of Engagement using Service Dominant Architecture" written at the University of Ljubljana - Faculty of Economics and Business and the University of Applied Sciences Pforzheim in the field of business informatics / information systems. Its purpose is to provide high-resolution versions of the images presented within the corresponding research report.
+This repository is part of its author's master's thesis **"Microfoundations of Value Cocreation: Using a Multilevel Design Approach to build Systems of Engagement using Service Dominant Architecture"** written at the University of Ljubljana - Faculty of Economics and Business and the University of Applied Sciences Pforzheim in the field of business informatics / information systems. Its purpose is to provide high-resolution versions of the images presented within the corresponding research report.
 
 For viewing the image files, best download the files provided within **SimplyGo_ServiceSystem** and **UseCase_RequestTestRequirement**. 
